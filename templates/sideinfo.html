@@ -1,0 +1,64 @@
+<div class="panel panel-default" style="width: 85%;height: 85%;">
+  <div class="panel-heading">博客分类</div>
+  <div class="panel-body">
+    {% if categories %}
+        <p>
+            {% for c in categories %}
+                <a href="{{ c.get_absolute_url }}" class="label label-warning" style="display: block;margin: 5px auto;width: 200px;height:40px;line-height: 40px;">
+                    {{ c.name }}({{c.blog_set.all|length }})
+                </a>
+            {% endfor %}
+        </p>
+    {% endif %}
+  </div>
+</div>
+
+<div class="panel panel-default" style="width: 85%;height: 85%;">
+  <div class="panel-heading">热门博客</div>
+  <div class="panel-body">
+    <p>
+        {% for hot_blog in hot_blogs %}
+            <p style="margin-left: 5px;">
+                {{ forloop.counter }}.&nbsp;&nbsp;<a href="{{ hot_blog.get_absolute_url }}" >
+                {{ hot_blog.title }}</a>
+            </p>
+        {% endfor %}
+    </p>
+
+  </div>
+</div>
+
+<div class="panel panel-default" style="width: 85%;height: 85%;">
+  <div class="panel-heading">标签云</div>
+  <div class="panel-body">
+    <p>
+        {% for tag in blog_tags %}
+            <strong>
+                <a href="{{ tag.blog_tag.get_absolute_url }}" style="color: {{ tag.rgb }};font-size: {{ tag.size }}px;">{{ tag.name }}</a>
+            </strong>
+        {% endfor %}
+    </p>
+
+  </div>
+</div>
+
+<div class="panel panel-default" style="width: 85%;height: 85%;">
+    <div class="panel-heading">最新评论</div>
+        <div class="panel-body">
+            <p>
+                <ul class="ds-recent-comments" data-num-items="10" data-show-avatars="1" data-show-time="1" data-show-admin="1" data-excerpt-length="70"></ul>
+                <!--多说js加载开始，一个页面只需要加载一次 -->
+                <script type="text/javascript">
+                var duoshuoQuery = {short_name:"shanyuze1029"};
+                (function() {
+                var ds = document.createElement('script');
+                ds.type = 'text/javascript';ds.async = true;
+                ds.src = 'http://static.duoshuo.com/embed.js';
+                ds.charset = 'UTF-8';
+                (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(ds);
+                })();
+                </script>
+                <!--多说js加载结束，一个页面只需要加载一次 -->
+            </p>
+    </div>
+</div>
