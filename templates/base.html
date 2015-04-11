@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="">
+        <meta name="author" content="">
+        <title>Shanyuze的博客</title>
+        <!--Bootstrap core css-->
+        <link rel="stylesheet" href="{{ STATIC_URL }}bootstrap/css/bootstrap.min.css"/>
+        <!--Custom styles for this template-->
+        <link rel="stylesheet" href="{{ STATIC_URL }}css/main.css"/>
+        <link rel="stylesheet" href="{{ STATIC_URL }}css/colorful.css"/>
+        <!--fontawesome图标css文件-->
+        <link rel="stylesheet" href="{{ STATIC_URL }}font-awesome/css/font-awesome.min.css">
+
+        <!-- Just for debugging purposes. Don't actually copy this line! -->
+        <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
+        <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+        <![endif]-->
+        <!--继承父模板的子模版的css样式-->
+        {% block css %}{% endblock %}
+
+    </head>
+    <body>
+        {% if not is_blog_view %}  <!--假如不是显示博客页面，就显示主页-->
+            {% include "head.html" %} <!--显示主页导航-->
+        {% else %}
+            <div class="container text-center" style="width: 90%;">
+                <a href="/" style="font-size: 20px;">返回首页</a>
+            </div>
+        {% endif %}
+        <div style="display: none" id="goTopBtn"><a href="javascript:;" title="返回顶部"></a></div>
+{#        <script type=text/javascript>goTopEx();</script>#}
+        {% if not is_blog_view %}
+            <div class="contanier">
+                <div class="row">
+                    <!--左侧博客列表栏-->
+                    <div class="col-md-9 lside">
+                    {% if not is_pigeonhole_view %}
+                        {% block content %}{% endblock %}
+                    {% else %}
+                        {% block con_pigeonhole %}{% endblock %}<!--博客归档内容-->
+                    {% endif %}
+                    </div>
+                    <!--右侧边栏-->
+                    <div class="col-md-3 rside" >
+                        {% include "userinfo.html" %}
+                        {% include "sideinfo.html" %}
+                    </div>
+                </div>
+            </div>
+            {% include "footer.html" %}
+        {% else %}
+            {% block contentBlog %}{% endblock %}
+        {% endif %}
+
+        <!--下面为浮动小人 start-->
+        <div id="float_asuna" onfocus="this.blur();" >
+            <div id="asuna_pic"
+                 style="background:url({{ STATIC_URL }}img/saber.jpg) no-repeat scroll 50% 0% transparent; width:85px;height:152px;">
+
+            </div>
+            <div id="dialog_chat">
+                <div id="chat_top"></div>
+                <div id="dialog_chat_contents">
+                    <div id="dialog_chat_loading" style="display: none;"></div>
+                    <div id="tempsaying" style="display: block;">欢迎来到shanyuze的小站,我是您的小导游哦!</div>
+                    <div id="showmenu" style="display: none;">
+                        <ul>
+                            <li id="wccguide" class="wcc_mlist">网站导航</li>
+                            <li id="shownotice" class="wcc_mlist">显示公告</li>
+                            <li id="search_chat" class="wcc_mlist">技术搜索</li>
+                            <li id="foods" class="wcc_mlist">吃点零食</li>
+                            <li id="playmusic" class="wcc_mlist">弄点歌听</li>
+                            <li id="lifetime" class="wcc_mlist">生存时间</li>
+                            <li id="closeasuna" class="wcc_mlist">关闭Asuna</li>
+                        </ul>
+
+                    </div>
+                    <div id="food_list" style="display: none;">
+                        <ul>
+                            <li id="food1">咸梅干</li>
+                            <li id="food2">金坷垃</li>
+                            <li id="food3">三鹿</li>
+                            <li id="food4">辣条</li>
+                        </ul>
+                    </div>
+                    <embed id="play_widget" style="display: none;" src="http://www.xiami.com/widget/48965643_383520,386984,76922,_200_93_FF8719_494949_1/multiPlayer.swf"
+                           type="application/x-shockwave-flash" width="200" height="93" wmode="opaque">
+
+                    </embed>
+                    <div>
+                    <ul id="asunasaying" style="display: none;"></ul>
+                    </div>
+                    <div id="getmenu" style="display: block;"></div>
+                </div>
+                <div id="chat_bottom"></div>
+            </div>
+        </div>
+        <div id="callasuna" >召唤Asuna</div>
+        <!--浮动小人 end-->
+
+        <script src="{{ STATIC_URL }}bootstrap/js/jquery-1.11.1.min.js"></script>
+        <script src="{{ STATIC_URL }}bootstrap/js/bootstrap.min.js"></script>
+        <!--下面为返回顶部图标及后台编辑博客处理的js-->
+        <script type="text/javascript" src="{{ STATIC_URL }}js/main.js"></script>
+        {% block js %}{% endblock %}
+    </body>
+
+
+</html>

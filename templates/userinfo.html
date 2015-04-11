@@ -1,0 +1,34 @@
+<div class="panel panel-default" style="width: 85%;height: 85%;" >
+  <div class="panel-body">
+      <p class="text-center">
+          <img src="{{ STATIC_URL }}img/love.jpg" alt="syz" class="img-circle" width="130px" height="130px"/>
+      </p>
+      <p class="text-center"><b class="text-warning">ShanYuZe</b></p>
+      <p class="text-center text-muted">学生.热爱生活和IT.</p>
+      <div class="form-group">
+          <form action="/search/" method="get" target="_blank" >
+            <input id="input_search" type="text" class="form-control" name="q"  placeholder="Search.Enter" style="width: 150px;margin: 0 auto;" />
+          </form>
+      </div>
+
+
+  </div>
+</div>
+<script>
+    var inS=document.getElementById('input_search');
+    inS.addEventListener('focus',function(){
+                animate(inS,{
+                attr:'w',
+                speed:10,
+                target:248
+                });
+            },false);
+    inS.addEventListener('blur',function(){
+                animate(inS,{
+                attr:'w',
+                speed:10,
+                target:150
+                });
+            },false);
+
+</script>

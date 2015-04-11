@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% block css %}
+    <style>
+        .form-panel{
+            width: 90%;
+            margin: 20px auto;
+            padding: 6% 0 5% 0;
+        }
+        .form-Sinin{
+            width: 50%;
+            margin: 20px auto;
+        }
+        .form-heading{
+            margin: 20px 0;
+        }
+    </style>
+{% endblock %}
+
+{% block content %}
+
+    <div class="panel panel-default form-panel">
+        <div class="panel-body">
+            <form class="form-Sinin" action="/login/" method="post">
+                {% csrf_token %}
+                <h2 class="form-heading">管理员登录</h2>
+{#                {% if form.errors %}#}
+{#                    <p style="color: red;">#}
+{#                        {{ form.errors.error }}#}
+{#                    </p>#}
+{#                {% endif %}#}
+                {{ form.as_p }}
+                <p>
+                    <a href="/manage/changePwd/" class="label label-danger" style="font-size: 14px;">修改密码...</a>
+                </p>
+                <button class="btn btn-primary btn-block btn-lg" type="submit">Sign in</button>
+            </form>
+
+            <hr style="margin-top: 22%;"/>
+            <br/>
+        </div>
+    </div>
+{% endblock %}

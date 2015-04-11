@@ -1,0 +1,88 @@
+{% extends "base.html" %}
+<!--下面是分页导入-->
+{% load pagination_tags %}
+{% block content %}
+
+    <div class="con">
+        {% if is_category %}
+            <div class="alert alert-success" role="alert">
+                <p>分类名称：<strong>{{ cate.name }}</strong>共有{{ blogs|length }}篇文章。</p>
+            </div>
+        {% endif %}
+        {% if is_blog_tag %}
+            <div class="alert alert-info" role="alert">
+                <p>标签名称：<strong>{{ blog_tag.name }}</strong>共有{{ blogs|length }}篇文章。</p>
+            </div>
+        {% endif %}
+        {% autopaginate blogs 5 %}
+        {% for blog in blogs %}
+            <div class="media " id="blog_{{ blog.id }}">
+                <a class="media-left media-middle" href="{{ blog.get_absolute_url }}">
+                    <img class="img-circle" src="{{ blog.img }}" width="120" height="120">
+                </a>
+                <div class="media-body media-object" >
+                    <p style="font-weight: bold;font-size: 15px;">
+                        <a href="{{ blog.get_absolute_url }}">{{ blog.title }}</a>
+                        <a href="{{ blog.cate.get_absolute_url }}" class="label label-warning pull-right">{{ blog.cate }}</a>
+
+                    </p>
+                    <p><small>
+                        {% if blog.is_show %}
+                            此文需要密码才能访问
+                        {% else %}
+                            {{ blog.content|truncatewords_html:10|safe }}
+                        {% endif %}
+                    </small></p>
+                    <hr/>
+                    <p class="text-muted">
+                        <span class="small">作者:<a href="/">Shanyuze</a></span>
+                        &nbsp;&nbsp;&nbsp;<span class="small">热度:{{ blog.counts }}&#8451;</span>
+                        &nbsp;&nbsp;&nbsp;
+                        {% if not is_blog_tag %}<!--不是显示标签页分类的时候，显示标签-->
+                            {% if blog.getTags %}
+                                <span class="small">标签:&nbsp;
+                                {% for i in blog.getTags %}
+                                     <a href="{{ i.tag.get_absolute_url }}" class="label label-danger">{{ i.tag.name }}</a></span>
+                                {% endfor %}
+                            {% endif %}
+                        {% endif %}
+                        {% if user.is_authenticated %}
+                            &nbsp;&nbsp;&nbsp;<span class="small"><a href="javascript:;" class="text-info" onclick="delBlog({{ blog.id }});">删除</a></span>
+                            &nbsp;&nbsp;&nbsp;<span class="small"><a href="/manage/add/?id={{ blog.id }}" class="text-danger">编辑</a></span>
+                        {% endif %}
+                    </p>
+
+
+                </div>
+            </div>
+        {% endfor %}
+        {% paginate %}
+    </div>
+{% endblock %}
+<!--下面为博客归档内容-->
+{% block con_pigeonhole %}
+    <div class="panel panel-default" style="padding: 20px;">
+        <div class="panel-heading">
+            <h1>博客归档</h1>
+        </div>
+        <div class="panel-body">
+            {% for i in blogs_info %}
+                <p class="text-muted">
+                    迄今为止,博主已经写了<code>{{ i.counts }}</code>篇博客了,继续努力中!<br/>
+                    <br/>人的一生是短的，但如果卑劣地过这短的一生，就太长了. <br/>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&minus;&minus;莎士比亚
+                </p>
+                <p><strong>{{ i.ye }}({{ i.count }})</strong></p>
+                {% for obj in i.blogs_list %}
+                    <ul>
+                        <li><a href="{{ obj.get_absolute_url }}">{{ obj.title }}</a></li>
+                    </ul>
+                {% endfor %}
+            {% endfor %}
+        </div>
+    </div>
+
+{% endblock %}
+
+
+

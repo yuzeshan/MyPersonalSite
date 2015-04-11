@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% load highlight %}
+{% block content %}
+    {% if query %}
+        <div class="panel panel-default" style="margin-left:5%;padding: 20px 50px;width: 90%;">
+            <div class="panel-body">
+                 <div class="alert alert-info" role="alert">
+                    {% if page.object_list %}
+                        本次共检索到{{ page.object_list|length }}条与<code>{{ query }}</code>有关的博客.
+                    {% else %}
+                        Sorry,没有检索到相关信息.
+                    {% endif %}
+                 </div>
+                 {% for result in page.object_list %}
+                    <p>
+                        <span class="label label-primary" style="vertical-align: 3px;">{{ forloop.counter }}</span>.<a href="{{ result.object.get_absolute_url }}" style="font-size: 20px;">{{ result.object.title }}</a>
+                        <hr style="margin-top: 10px;"/>
+                        {% highlight  result.object.content with query css_class "label label-danger" %}
+                    </p>
+
+                 {% endfor %}
+                 {% if page.has_previous or page.has_next %}
+                    <div>
+                        {% if page.has_previous %}<a href="?q={{ query }}&amp;page={{ page.previous_page_number }}">{% endif %}&laquo; Previous{% if page.has_previous %}</a>{% endif %}
+                        |
+                        {% if page.has_next %}<a href="?q={{ query }}&amp;page={{ page.next_page_number }}">{% endif %}Next &raquo;{% if page.has_next %}</a>{% endif %}
+                    </div>
+                 {% endif %}
+            </div>
+        </div>
+    {% endif %}
+
+ {% endblock %}

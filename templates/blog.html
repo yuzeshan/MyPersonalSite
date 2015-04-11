@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% load markup %}
+
+{% block contentBlog %}
+    <div class="container" style="width: 90%;">
+        <p style="font-size: 20px; margin-top: 25px;"class="text-center">{{ blog.title }}</p>
+        <hr/>
+        <p class="text-muted" style="font-size: 18px;" >
+            Shanyuze&nbsp;
+            发布于{{ blog.add_date|date:"Y/m/d H:i" }}&nbsp;&nbsp;
+            持续热度{{ blog.counts }}&#8451;&nbsp;&nbsp;
+            类别:&nbsp;&nbsp;<a href="{{ blog.cate.get_absolute_url }}" class="label label-warning">{{ blog.cate }}</a>
+        </p>
+        <hr/>
+        <p>{{ blog.content|custom_markdown|safe }}</p>
+        <hr/>
+        <p class="text-muted">作者:Shanyuze</p>
+        <hr/>
+        <p style="margin-bottom: 20px;">
+            {% if pg.pre %}
+                <a href="/blog/{{ pg.pre }}/" class="label label-info pull-left" style="width: 80px;height: 25px; line-height: 22px;font-size: 15px;">上一篇:</a>
+            {% endif %}
+            {% if pg.nt %}
+                <a href="/blog/{{ pg.nt }}/" class="label label-info pull-right" style="width: 80px;height: 25px; line-height: 22px;font-size: 15px;">下一篇:</a>
+            {% endif %}
+       </p>
+         <!-- 多说评论框 start -->
+        <div class="ds-thread" data-thread-key="{{ blog.id }}" data-title="{{ blog.title }}"
+             data-url="{{ blog.get_absolute_url }}" ></div>
+        <!-- 多说评论框 end -->
+        <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+        <script type="text/javascript">
+            var duoshuoQuery = {short_name:"shanyuze1029"};
+            (function() {
+                var ds = document.createElement('script');
+                ds.type = 'text/javascript';ds.async = true;
+                ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+                ds.charset = 'UTF-8';
+                (document.getElementsByTagName('head')[0]
+                 || document.getElementsByTagName('body')[0]).appendChild(ds);
+            })();
+        </script>
+    <!-- 多说公共JS代码 end -->
+
+    </div>
+
+{% endblock %}
