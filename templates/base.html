@@ -3,7 +3,7 @@
     <head>
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta http-equiv="Page-Exit" content="RevealTrans(duration=5,Transitionv=11)">
+
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="description" content="">
         <meta name="author" content="">
@@ -25,8 +25,9 @@
         <![endif]-->
         <!--继承父模板的子模版的css样式-->
         {% block css %}{% endblock %}
+        <!--下面为页面加载介绍前的缓冲效果-->
         <script>
-             //获取浏览器页面可见高度和宽度
+                //获取浏览器页面可见高度和宽度
             var _PageHeight = document.documentElement.clientHeight,
                 _PageWidth = document.documentElement.clientWidth;
             //计算loading框距离顶部和左部的距离（loading框的宽度为215px，高度为61px）
@@ -84,7 +85,7 @@
                     <!--右侧边栏-->
                     <div class="col-md-3 rside" >
                         {% include "userinfo.html" %}
-                        {% include "sideinfo.html" %}
+                        <div id="sideinfo"></div>
                     </div>
                 </div>
             </div>
@@ -145,6 +146,20 @@
         <script type="text/javascript" src="{{ STATIC_URL }}js/main.js"></script>
         {% block js %}{% endblock %}
     </body>
-
+    <!--下面为异步加载侧边栏信息js代码
+    实质，就是页面加载时，运行js代码，向服务器请求ajax，然后返回侧边栏html文件，其中包括后天要加载的信息，
+    再利用返回的html，使用js将其添加到指定位置
+    好处，就是后天服务器减少代码，免去每次返回页面时都要附带侧边栏所需要的变量信息-->
+    <script>
+        $(function(){
+            {% if not is_blog_view %} getSideinfo();{% endif %}
+        });
+        function getSideinfo(){
+            var url='/sideInfo/';
+            $.post(url,function(data){
+                $('#sideinfo').html(data);//将HTML文件添加到上面定义的div中
+            })
+        }
+    </script>
 
 </html>

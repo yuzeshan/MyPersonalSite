@@ -7,6 +7,8 @@ from django.contrib.auth.models import User
 from common.form import LoginForm
 from django.contrib.auth import authenticate,login,logout
 import random
+#下面防止ajax post出现403错误
+from django.views.decorators.csrf import csrf_exempt
 
 def index(request):
     """首页"""
@@ -251,9 +253,20 @@ def ciphertext(request,pk=None):
         return render_to_response('ciphertext.html',
                                   context_instance=RequestContext(request))
 
-
-
-
+@csrf_exempt
+def sideInfo(request):
+    """异步侧边栏加载
+    ajax请求，返回要加载的html页面作为返回的数据"""
+    if request.method == 'POST':
+        context={}
+        #侧边栏信息
+        categories=Category.objects.all()
+        hot_blogs=Blog.objects.order_by("-counts")[:15]
+        blog_tags=tagsCloud()
+        context['categories']=categories
+        context['hot_blogs']=hot_blogs
+        context['blog_tags']=blog_tags
+        return render_to_response('sideinfo.html',context,context_instance=RequestContext(request))
 
 
 
