@@ -24,7 +24,7 @@
         <![endif]-->
         <!--继承父模板的子模版的css样式-->
         {% block css %}{% endblock %}
-
+        {% block js_load  %}{% endblock %}
     </head>
     <body>
         {% if not is_blog_view %}  <!--假如不是显示博客页面，就显示主页-->
