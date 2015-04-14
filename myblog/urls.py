@@ -31,9 +31,9 @@ urlpatterns += patterns('myblog.views',
 
 
     url(r'^wiki/$', 'wiki', name='wiki'),   # 维基
-    url(r'^gitbook/$', 'gitbook', name='gitbook'),   # 维基
-
-
+    url(r'^gitbook/$', 'gitbook', {'template_name': 'gitbook/index.html'}),   # 维基howtouse
+    url(r'^howtouse/$', 'gitbook', {'template_name': 'gitbook/howtouse/index.html'}),
+    url(r'^howtouse/Nodejsinstall/$', 'gitbook', {'template_name': 'gitbook/howtouse/Nodejsinstall.html'}),
 )
 
 

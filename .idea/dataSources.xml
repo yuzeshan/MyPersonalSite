@@ -5,10 +5,7 @@
       <driver-ref>mysql</driver-ref>
       <jdbc-driver>com.mysql.jdbc.Driver</jdbc-driver>
       <jdbc-url>jdbc:mysql://127.0.0.1:3306/myblogdb</jdbc-url>
-      <user-name>root</user-name>
-      <user-password>df9fdf9cdf9adf9bdf98df9fdf93</user-password>
       <libraries />
     </data-source>
   </component>
 </project>
-
