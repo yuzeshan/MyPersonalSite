@@ -8,6 +8,7 @@ $(function ($) {
     choiceCode();
     addBlog_Init();//为类型和标签输入框添加选中的类型名和标签名
     uploadBlog_Init();
+    navigator_switch();
 })//html文档加载后，运行这些代码
 
 /*下面为返回顶部图标js代码*/
@@ -217,12 +218,40 @@ function delTag(id){
     }
 }
 /*下面是点击导航栏的焦点迁移*/
-$('.navgator li').each(function(){//遍历导航栏的li
-    $(this).click(function(){
-        $('.navgator li').attr('class','');
-        this.className='active';//也可以$(this).attr('class','active');
+function navigator_switch(){
+     $('.navgator li').each(function(){//遍历导航栏的li
+        $(this).click(function(){
+            $('.navgator li').removeClaSss();
+            this.setAttribute('class','active');
+        });
     });
-});
+}
+
+
+//导航
+function webnav(){
+    var path = window.location.pathname;
+    if(path.indexOf('wiki') > -1){
+        $('#webnav li').removeClass();
+        $('#wiki').addClass('active');
+    };
+    if(path.indexOf('pic') > -1){
+        $('#webnav li').removeClass();
+        $('#pic').addClass('active');
+    };
+    if(path.indexOf('about') > -1){
+        $('#webnav li').removeClass();
+        $('#about').addClass('active');
+    }
+    if(path.indexOf('resume') > -1){
+        $('#webnav li').removeClass();
+        $('#resume').addClass('active');
+    }
+    if(path.indexOf('english') > -1){
+        $('#webnav li').removeClass();
+        $('#english').addClass('active');
+    }
+}
 /*下面是浮动小人的js代码*/
 
 //刷新页面时浮动小人从天缓缓而降

@@ -43,6 +43,7 @@ INSTALLED_APPS = (
     'wmd',  #这是wmd markdown编辑器
     'linaro_django_pagination',#文章分页
     'haystack', #这是haystack全文搜索
+
 )
 
 MIDDLEWARE_CLASSES = (
@@ -62,7 +63,11 @@ TEMPLATE_CONTEXT_PROCESSORS=('django.contrib.auth.context_processors.auth',
  'django.core.context_processors.static',
  'django.core.context_processors.tz',
  'django.contrib.messages.context_processors.messages',
- 'django.core.context_processors.request',)
+ 'django.core.context_processors.request',
+
+
+)
+
 
 
 #ckeditor编辑器配置
@@ -148,6 +153,8 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static/').replace('\\','/')
 TEMPLATE_DIRS = (
     os.path.join(BASE_DIR, 'templates'),
 )
+
+
 
 
 

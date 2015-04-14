@@ -270,6 +270,12 @@ def sideInfo(request):
 
 
 
+def wiki(request):
+    """wiki测试"""
+    return render_to_response('wiki/wiki.html',context_instance=RequestContext(request))
 
 
+def gitbook(request):
+    """wiki测试"""
+    return render_to_response('gitbook-html/index.html',context_instance=RequestContext(request))
 

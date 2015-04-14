@@ -30,4 +30,10 @@ urlpatterns += patterns('myblog.views',
     url(r"^feed/$",LatestEntriesFeed()), #订阅源
 
 
+    url(r'^wiki/$', 'wiki', name='wiki'),   # 维基
+    url(r'^gitbook/$', 'gitbook', name='gitbook'),   # 维基
+
+
 )
+
+
