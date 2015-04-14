@@ -219,39 +219,20 @@ function delTag(id){
 }
 /*下面是点击导航栏的焦点迁移*/
 function navigator_switch(){
-     $('.navgator li').each(function(){//遍历导航栏的li
-        $(this).click(function(){
-            $('.navgator li').removeClaSss();
-            this.setAttribute('class','active');
-        });
-    });
-}
-
-
-//导航
-function webnav(){
+//     $('.navgator li').each(function(){//遍历导航栏的li
+//        $(this).click(function(){
+//            $('.navgator li').removeClass();
+//            this.setAttribute('class','active');
+//        });
+//    });
+    //暂时解决方案，不好
     var path = window.location.pathname;
     if(path.indexOf('wiki') > -1){
-        $('#webnav li').removeClass();
+        $('.navgator li').removeClass();
         $('#wiki').addClass('active');
-    };
-    if(path.indexOf('pic') > -1){
-        $('#webnav li').removeClass();
-        $('#pic').addClass('active');
-    };
-    if(path.indexOf('about') > -1){
-        $('#webnav li').removeClass();
-        $('#about').addClass('active');
-    }
-    if(path.indexOf('resume') > -1){
-        $('#webnav li').removeClass();
-        $('#resume').addClass('active');
-    }
-    if(path.indexOf('english') > -1){
-        $('#webnav li').removeClass();
-        $('#english').addClass('active');
     }
 }
+
 /*下面是浮动小人的js代码*/
 
 //刷新页面时浮动小人从天缓缓而降
