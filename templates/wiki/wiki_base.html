@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="">
+        <meta name="author" content="">
+        <title>Shanyuze的WIKI</title>
+        <!--Bootstrap core css-->
+        <link rel="stylesheet" href="{{ STATIC_URL }}bootstrap/css/bootstrap.min.css"/>
+        <!--Custom styles for this template-->
+        <link rel="stylesheet" href="{{ STATIC_URL }}css/main.css"/>
+        <link rel="stylesheet" href="{{ STATIC_URL }}css/colorful.css"/>
+        <!--fontawesome图标css文件-->
+        <link rel="stylesheet" href="{{ STATIC_URL }}font-awesome/css/font-awesome.min.css">
+
+        <!-- Just for debugging purposes. Don't actually copy this line! -->
+        <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
+        <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+        <![endif]-->
+        <!--继承父模板的子模版的css样式-->
+        {% block css %}{% endblock %}
+        <!--下面为页面加载介绍前的缓冲效果-->
+        <script>
+                //获取浏览器页面可见高度和宽度
+            var _PageHeight = document.documentElement.clientHeight,
+                _PageWidth = document.documentElement.clientWidth;
+            //计算loading框距离顶部和左部的距离（loading框的宽度为215px，高度为61px）
+            var _LoadingTop = _PageHeight > 300 ? (_PageHeight - 300) / 2 : 0,
+                _LoadingLeft = _PageWidth > 400 ? (_PageWidth - 400) / 2 : 0;
+
+            //在页面未加载完毕之前显示的loading Html自定义内容
+            var _LoadingHtml = '<div id="loadingDiv" style="position:absolute;left:0;top:0;width:100%;height:' + _PageHeight + 'px;background:rgb(51,51,51);opacity:1.0;z-index:10000;">' +
+                    '<div style="position: absolute;left: ' + _LoadingLeft + 'px; top:' + _LoadingTop + 'px; width: 400px; height:300px; background:rgb(51,51,51) url({{ STATIC_URL }}img/3.gif) no-repeat scroll 5px 10px;"></div>' +
+                    '</div>';
+
+            //呈现loading效果
+            document.write(_LoadingHtml);
+
+            //window.onload = function () {
+            //    var loadingMask = document.getElementById('loadingDiv');
+            //    loadingMask.parentNode.removeChild(loadingMask);
+            //};
+
+            //监听加载状态改变
+            document.onreadystatechange = completeLoading;
+
+            //加载状态为complete时移除loading效果
+            function completeLoading() {
+                if (document.readyState == "complete") {
+                    var loadingMask = document.getElementById('loadingDiv');
+                    loadingMask.parentNode.removeChild(loadingMask);
+
+
+                }
+            }
+        </script>
+    </head>
+    <body>
+        {% include "head.html" %} <!--显示主页导航-->
+        <div style="display: none" id="goTopBtn"><a href="javascript:;" title="返回顶部"></a></div>
+        <div class="contanier">
+            <div class="row">
+                <!--下面是后面wiki列表页面和wiki内容页面需要继承和加载的内容-->
+                {% block content %}{% endblock %}
+
+            </div>
+        </div>
+        {% include "footer.html" %}
+
+        <!--下面为浮动小人 start-->
+        <div id="float_asuna" onfocus="this.blur();" >
+            <div id="asuna_pic"
+                 style="background:url({{ STATIC_URL }}img/saber.jpg) no-repeat scroll 50% 0% transparent; width:85px;height:152px;">
+
+            </div>
+            <div id="dialog_chat">
+                <div id="chat_top"></div>
+                <div id="dialog_chat_contents">
+                    <div id="dialog_chat_loading" style="display: none;"></div>
+                    <div id="tempsaying" style="display: block;">欢迎来到shanyuze的小站,我是您的小导游哦!</div>
+                    <div id="showmenu" style="display: none;">
+                        <ul>
+                            <li id="wccguide" class="wcc_mlist">网站导航</li>
+                            <li id="shownotice" class="wcc_mlist">显示公告</li>
+                            <li id="search_chat" class="wcc_mlist">技术搜索</li>
+                            <li id="foods" class="wcc_mlist">吃点零食</li>
+                            <li id="playmusic" class="wcc_mlist">弄点歌听</li>
+                            <li id="lifetime" class="wcc_mlist">生存时间</li>
+                            <li id="closeasuna" class="wcc_mlist">关闭Asuna</li>
+                        </ul>
+
+                    </div>
+                    <div id="food_list" style="display: none;">
+                        <ul>
+                            <li id="food1">咸梅干</li>
+                            <li id="food2">金坷垃</li>
+                            <li id="food3">三鹿</li>
+                            <li id="food4">辣条</li>
+                        </ul>
+                    </div>
+                    <embed id="play_widget" style="display: none;" src="http://www.xiami.com/widget/48965643_383520,386984,76922,_200_93_FF8719_494949_1/multiPlayer.swf"
+                           type="application/x-shockwave-flash" width="200" height="93" wmode="opaque">
+
+                    </embed>
+                    <div>
+                    <ul id="asunasaying" style="display: none;"></ul>
+                    </div>
+                    <div id="getmenu" style="display: block;"></div>
+                </div>
+                <div id="chat_bottom"></div>
+            </div>
+        </div>
+        <div id="callasuna" >召唤Asuna</div>
+        <!--浮动小人 end-->
+
+        <script src="{{ STATIC_URL }}bootstrap/js/jquery-1.11.1.min.js"></script>
+        <script src="{{ STATIC_URL }}bootstrap/js/bootstrap.min.js"></script>
+        <!--下面为返回顶部图标及后台编辑博客处理的js-->
+        <script type="text/javascript" src="{{ STATIC_URL }}js/main.js"></script>
+        {% block js %}{% endblock %}
+    </body>
+
+
+</html>

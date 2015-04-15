@@ -106,7 +106,7 @@ def getPic(html):
         return s['src']
     #上面几行代码是为了获取文章内容中嵌入的图片
     #下面是文章之后没图片，而随机选择静态文件中的图片
-    return '/static/img/%s.jpg' % (random.choice(range(1, 10)))
+    return '/static/img/blog/%s.jpg' % (random.choice(range(1, 10)))
 
 @csrf_exempt
 def deleteBlog(request):

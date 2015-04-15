@@ -1,12 +1,44 @@
-{% extends "base.html" %}
+{% extends "wiki/wiki_base.html" %}
+{% block css %}
+    <style>
+        body{
+            background: url("{{ STATIC_URL }}img/bg1.jpg") no-repeat 0 0 ;
+            background-size: cover;
+            background-attachment: fixed;
+            overflow-x: hidden;
+        }
+
+        #wiki_index{
+{#            border: 1px solid red;#}
+            margin-left: 8%;
+
+        }
+    </style>
+{% endblock %}
+
 {% block content %}
 
-    <div class="panel panel-default form-panel">
-        <div class="panel-body">
+    <div class="col-md-10" id="wiki_index">
+        {% if names %}
+            {% for obj in names %}
+                <div class="row" style="float: left;margin-right: 22px;border: 1px solid #ccc;border-radius: 2px;margin-bottom: 15px;margin-top: 30px;">
+                    <a  href="{{ obj.get_absolute_url }}"style="text-decoration: none;">
+                        <div  style="width: 284px;height: 300px;background-image:url({{ obj.img }});background-size: cover;text-align: center;line-height: 300px;font-size: 20px;font-weight:bold;color: #333;text-decoration: none;">
+                            {{ obj.name }}
+                        </div>
+                        {#        <div class="info">#}
+                        {#            <h4 class="title">基于iframe的单页应用组件</h4>#}
+                        {#            <p>一款基于iframe的单页应用组件，用在音频、IM类站点，避免因页面跳转而引起的播放停顿、聊天状态丢失等问题。</p>#}
+                                    {#        </div>#}
+                    </a>
+                </div>
+            {% endfor %}
+        {% else %}
+            <div class="alert alert-danger" role="alert" style="margin:50px auto 200px;width: 50%;">还没有建立任何Wiki哦!</div>
+        {% endif %}
 
-            <a href="#">gitbook入门教程</a>
-            <hr style="margin-top: 22%;"/>
-            <br/>
-        </div>
     </div>
 {% endblock %}
+
+
+

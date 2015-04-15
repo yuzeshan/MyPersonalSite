@@ -271,8 +271,17 @@ def sideInfo(request):
 
 
 def wiki(request):
-    """wiki测试"""
-    return render_to_response('wiki/wiki.html',context_instance=RequestContext(request))
+    """wiki列表"""
+    names=Wiki_Name.objects.all()
+    return render_to_response('wiki/wiki.html',{'names':names},context_instance=RequestContext(request))
 
+def wiki_name(request,pk):
+    """相应wiki名称下的wiki检索"""
+    try:
+        wiki_name=Wiki_Name.objects.get(pk=pk)
+    except Wiki_Name.DoesNotExist:  #如果分类不存在，则引起404错误
+        raise Http404
+    wikis=wiki_name.wiki_set.all()
+    return render_to_response('',{'wikis':wikis},context_instance=RequestContext(request))
 
 

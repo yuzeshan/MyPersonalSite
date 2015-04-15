@@ -67,6 +67,42 @@ class Tag(models.Model):
         return self.tag.name
 
 
+class Wiki_Name(models.Model):
+    """wiki名字"""
+    name=models.CharField(max_length=100,blank=True)
+    img=models.CharField(max_length=500,null=True) #wiki缩略图背景图
+    add_date=models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering=["id"]
+
+    def __unicode__(self):
+        return self.name
+
+    @models.permalink
+    def get_absolute_url(self):
+        return ('wiki_name',(),{'pk':self.pk})
+
+class Wiki(models.Model):
+    """wiki的具体内容"""
+    name=models.ForeignKey(Wiki_Name)#wiki名字外键
+    chapter=models.CharField(max_length=500,blank=True)#wiki章节名字
+    #下面是wmd markdown编辑器配置
+    content=wmd_models.MarkDownField()#wiki章节内容
+    add_date=models.DateTimeField(auto_now_add=True)
+    counts=models.IntegerField(default=0)  #点击率
+    class Meta:
+        ordering=["-id"]
+
+    def __unicode__(self):
+        return self.name
+
+    @models.permalink
+    def get_absolute_url(self):
+        return ('wiki',(),{'pk':self.pk})
+
+
+
 
 
 
