@@ -275,7 +275,4 @@ def wiki(request):
     return render_to_response('wiki/wiki.html',context_instance=RequestContext(request))
 
 
-def gitbook(request,template_name):
-    """wiki测试"""
-    return render_to_response(template_name)
 
