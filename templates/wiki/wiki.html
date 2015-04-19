@@ -13,6 +13,26 @@
             margin-left: 8%;
 
         }
+        #wiki_row{
+            float: left;
+            margin-right: 22px;
+            border: 1px solid #ccc;
+            border-radius: 2px;
+            margin-bottom: 15px;
+            margin-top: 30px;
+        }
+        #wiki_img{
+            width: 284px;
+            height: 300px;
+            background-size: cover;
+            text-align: center;
+            line-height: 300px;
+            font-size: 20px;
+            font-weight:bold;
+            color: #333;
+            text-decoration: none;
+        }
+
     </style>
 {% endblock %}
 
@@ -21,9 +41,9 @@
     <div class="col-md-10" id="wiki_index">
         {% if names %}
             {% for obj in names %}
-                <div class="row" style="float: left;margin-right: 22px;border: 1px solid #ccc;border-radius: 2px;margin-bottom: 15px;margin-top: 30px;">
+                <div class="row" id="wiki_row">
                     <a  href="{{ obj.get_absolute_url }}"style="text-decoration: none;">
-                        <div  style="width: 284px;height: 300px;background-image:url({{ obj.img }});background-size: cover;text-align: center;line-height: 300px;font-size: 20px;font-weight:bold;color: #333;text-decoration: none;">
+                        <div id="wiki_img" style="background-image:url({{ obj.img }});">
                             {{ obj.name }}
                         </div>
                         {#        <div class="info">#}
