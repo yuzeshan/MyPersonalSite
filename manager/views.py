@@ -54,7 +54,7 @@ def addBlog(request):
                     #下面是添加标签
                     Tag.objects.create(blog=blog,tag=Blog_tag.objects.filter(name=i)[0])
             #添加博客导图
-            img=getPic(blog.content)
+            img=getBlogPic(blog.content)
             blog.img=img
             blog.save()
             return HttpResponseRedirect('/')
@@ -99,8 +99,8 @@ def addType(request):
             return HttpResponse(json.dumps(data))
 
 
-def getPic(html):
-    """获取图片"""
+def getBlogPic(html):
+    """获取博客图片"""
     soup = BeautifulSoup(html)
     s = soup.find('img')
     if s:
@@ -190,7 +190,7 @@ def uploadBlog(request):
                     #下面是添加标签
                     Tag.objects.create(blog=blog,tag=Blog_tag.objects.filter(name=i)[0])
             #添加博客导图
-            img=getPic(blog.content)
+            img=getBlogPic(blog.content)
             blog.img=img
             blog.save()
         context['cate']=cate
@@ -256,7 +256,12 @@ def addWiki(request,pk):
             form_data=form.cleaned_data
             chapter=form_data.get('chapter')#获取章节标题
             content=form_data.get('content')#获取章节内容
-            wiki=Wiki.objects.create(name=wiki_name,chapter=chapter,content=content)
+            edit = int(request.POST.get('edit', 0))    # 编辑还是创建
+            if edit:     # 编辑状态
+                Wiki.objects.filter(id=edit).update(name=wiki_name,chapter=chapter,content=content)
+            else:
+                wiki=Wiki.objects.create(name=wiki_name,chapter=chapter,content=content)
+
             return HttpResponseRedirect('/wiki/')
         else:
             return render_to_response('manager/addWiki.html',context,
@@ -266,17 +271,61 @@ def addWiki(request,pk):
     else:
         form=WikiForm()
         context['form']=form
+        id=request.GET.get('id',None)#获得url的wiki章节内容的id值，只有处于编辑状态下，才有
+        edit=0  #初始化编辑flag，若不为0，则处于编辑状态
+        if id:      #处于编辑状态
+            edit=id
+            wikichapter=Wiki.objects.get(pk=id)  #获取指定id的博客对象
+            form=WikiForm({'chapter':wikichapter.chapter,'content':wikichapter.content})  #创建wiki章节内容表单实例
+            context['form']=form
+        context['edit']=edit
 
     return render_to_response('manager/addWiki.html',context,
         context_instance=RequestContext(request))
 
+@csrf_exempt
+def delWikiName(request):
+    """删除wiki教程"""
+    data={}
+    if request.method=='POST':
+        id=request.POST.get('id',None)
+        wiki_name=Wiki_Name.objects.get(id=id).delete() #将指定id的wiki名称删除
+        Wiki.objects.filter(name=wiki_name).delete()  #同时也将依赖该wiki名称的章节内容也删除
+        data['id']=id
+        return HttpResponse(json.dumps(data))
+
+@csrf_exempt
+def addWikiName(request):
+    """后台添加wiki名称
+       同时自动添加img模型字段
+    """
+    data={}
+    if request.method=='POST':
+        wikiName=request.POST.get('name',None).strip().lower()
+        if wikiName not in [obj.name for obj in Wiki_Name.objects.all()]:
+            WikiName=Wiki_Name.objects.create(name=wikiName)
+            img=getWikiPic()
+            WikiName.img=img
+            WikiName.save()
+            data['id']=WikiName.id
+            return HttpResponse(json.dumps(data))
 
 
+def getWikiPic():
+    """获取wiki名称背景图片"""
+    #随机选择静态文件中的图片
+    return '/static/img/wiki_name/%s.jpg' % (random.choice(range(1, 4)))
 
-
-
-
-
+@csrf_exempt
+def delWikiChapter(request):
+    """删除wiki教程的章节内容
+    """
+    data={}
+    if request.method=='POST':
+        id=request.POST.get('id',None)
+        Wiki.objects.get(id=id).delete() #将指定id的wiki章节内容删除
+        data['id']=id
+        return HttpResponse(json.dumps(data))
 
 
 

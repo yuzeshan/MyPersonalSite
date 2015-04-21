@@ -41,12 +41,12 @@
                 <div class="btn-group" id="wiki_buttons" style="margin-bottom: 10px">
                     <span>
                         {% for wikiname in wiki_names %}
-                            <button type="button" class="btn btn-primary" id="c_{{ wikiname.id }}" >
+                            <button type="button" class="btn btn-primary" id="w_{{ wikiname.id }}" >
                                 {{ wikiname.name }}
                             </button>
                             <span class="label label-primary label-sm wikiname_del" id="wikiname_{{ wikiname.id }}">&times;</span>
                         {% endfor %}
-                       <input type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#addwikiname"  value="添加分类" id="adds" onclick="(function(){
+                       <input type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#addwikiname"  value="添加分类" id="addWikiName" onclick="(function(){
                            //操作初始化
                            $('#sendok').hide();
                            $('#wiki_input').show();
@@ -72,7 +72,7 @@
                         <div id="prew_c"></div>
                     </div>
                 </div>
-                <input type="hidden" name="edit_or_creat" value="{{ is_edit }}" />
+                <input type="hidden" name="edit" value="{{ edit }}" />
                 <a href="javascript:;" class="btn btn-primary btn-block btn-lg" style="display: block;margin-top: 20px;" id="wikisubmit" data-loading-text="正在加载...">发布</a>
             </form>
 
@@ -92,13 +92,13 @@
                 </div>
                 <div class="modal-body">
                     <form>
-                        <div class="form-group" id="wiki_input">
+                        <div class="form-group" id="wikiname_input">
                             <label for="wiki_name" class="control-label">名称:</label>
-                            <p class="small" style="color: #c04b4b; font-weight: bold; display: none" id="warn_info">*类型名称必填</p>
+                            <p class="small" style="color: #c04b4b; font-weight: bold; display: none" id="warn_info">*wiki名称必填</p>
                             <input type="text" class="form-control" id="wiki_name">
                         </div>
                         <div class="form-group" id="sendok" style="display: none;">
-                            <p style="color: rgb(79,181,116); font-weight: bold; " class="info">恭喜，类型添加成功!</p>
+                            <p style="color: rgb(79,181,116); font-weight: bold; " class="info">恭喜，wiki名称添加成功!</p>
                         </div>
                     </form>
                 </div>
@@ -121,9 +121,16 @@
                 {% if wikis %}
                     <p>
                         {% for w in wikis %}
-                            <a href="{{ w.get_absolute_url }}" class="label label-warning" style="display: block;margin: 5px auto;width: 200px;height:40px;line-height: 40px;">
-                                {{ w.chapter }}
-                            </a>
+                            <div id="chapter_{{ w.id }}" class="label label-primary" style="display: block;margin: 5px auto;width: 220px;height:40px;line-height: 40px;">
+                                <a href="{{ w.get_absolute_url }}" class="label label-info" style="font-size: 12px;">
+                                    {{ w.chapter }}
+                                </a>
+                                <a href="javascript:;" class="label label-danger" style="font-size: 10px;margin-left: 10px;" onclick="delWikiChapter({{ w.id }})">
+                                    删除
+                                </a>
+                                <a href="/manage/addWiki/{{ wiki_name.id }}/?id={{ w.id }}" class="label label-warning" style="font-size: 10px;margin-left: 5px;">编辑</a>
+                            </div>
+
                         {% endfor %}
                     </p>
                 {% endif %}

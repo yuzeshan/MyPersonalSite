@@ -83,6 +83,7 @@ function addType() {
     }
 
 }
+
 //为选中的类型按钮添加属性，以便后面选择
 function choiceCode(){
     $('#cate_buttons span button').click(function(){
@@ -162,18 +163,6 @@ function uploadBlog_Init(){
         $('#uploadBlog').submit();//将发布按钮（未设置type="submit"）设置为submit
     });
 }
-//wiki表单提交验证,并设置提交
-function addWiki_Init(){
-    $('#wikisubmit').click(function() {
-        if (!$('#id_chapter').val()) {
-            alert('请填写章节标题!');
-            return false;
-        }
-        $('#addWiki').submit();//将发布按钮（未设置type="submit"）设置为wikisubmit
-
-    });
-
-}
 
 //获取标签,并将其以字符串的形式存入数组里
 function getTags(){
@@ -230,6 +219,96 @@ function delTag(id){
         });
     }
 }
+
+/*-------------下面是处理wiki的js代码-----start-----*/
+
+//wiki表单提交验证,并设置提交
+function addWiki_Init(){
+    $('#wikisubmit').click(function() {
+        if (!$('#id_chapter').val()) {
+            alert('请填写章节标题!');
+            return false;
+        }
+        $('#addWiki').submit();//将发布按钮（未设置type="submit"）设置为wikisubmit
+
+    });
+
+}
+
+//删除wiki教程
+function delWikiName(id){
+    var url="/manage/delWikiName/";
+    if(confirm('确定删除该教程吗?')){
+        var jqxhr=$.post(url, {"id": id}, function(data){
+            if(data){
+                var r=JSON.parse(data);
+                $('#wikiName_'+r.id).hide();//仅仅隐藏，再次刷新时就会更新；而直接删除则会把其他也删除了
+
+            }else{
+                alert('系统出错');
+            }
+        });
+        jqxhr.error(function() {
+            alert("发生错误了，错误代码是:"+jqxhr.status);
+
+        });
+    }
+
+}
+//添加wiki名称（后台）
+function addWikiname() {
+    var name=$('#wiki_name').val().trim();
+    if(!name){
+        return $('#warn_info').show();
+    }else{
+        var jqxhr=$.post('/manage/addWikiName/', {'name': name}, function(data){
+            var r = JSON.parse(data);//解析传过来的json格式数据，解析后为对象花括号形式，即键值对
+            if(r){
+                $('#wikiname_input').hide();
+                $('#sendok').show();
+                $('#addWikiName').before('<button type="button" class="btn btn-primary"  id="w_'+ r.id+'" style="margin:0 3px 0 3px;">'+name+'</button>'
+                    +'<span class="label label-primary label-sm wikiname_del" id="wikiname_'+r.id+'">'+'&times;'+'</span>');
+
+            }else{
+                return $('#warn_info').text('系统出差').show();
+            }
+
+
+        });
+        //处理服务器返回的错误
+        jqxhr.error(function() {
+//            alert("发生错误了，错误代码是:"+jqxhr.status);
+            $('#wikiname_input').hide();
+            $('#sendok').show();
+            $('#sendok p').text("发生错误了，错误代码是:"+jqxhr.status+',当然可能是重复添加数据库中已有的类型了，请关闭重新添加 ！').css('color','red');
+        });
+    }
+
+}
+//删除wiki章节
+function delWikiChapter(id){
+    var url="/manage/delWikiChapter/";
+    if(confirm('确定删除该章节内容吗?')){
+        var jqxhr=$.post(url, {"id": id}, function(data){
+            if(data){
+                var r=JSON.parse(data);
+                $('#chapter_'+r.id).hide();//仅仅隐藏，再次刷新时就会更新；而直接删除则会把其他也删除了
+
+            }else{
+                alert('系统出错');
+            }
+        });
+        jqxhr.error(function() {
+            alert("发生错误了，错误代码是:"+jqxhr.status);
+
+        });
+    }
+
+}
+
+/*-------------上面是处理wiki的js代码-----end-----*/
+
+
 /*下面是点击导航栏的焦点迁移*/
 function navigator_switch(){
 //     $('.navgator li').each(function(){//遍历导航栏的li

@@ -12,4 +12,8 @@ urlpatterns = patterns('manager.views',
     url(r'^delTag/$','delTag',name='delTag'),#删除标签
 
     url(r'^addWiki/(?P<pk>\d+)/$', 'addWiki',name='addWiki'),      #添加wiki内容
+    url(r'^delWikiName/$','delWikiName',name='delWikiName'),#删除wiki教程
+    url(r'^addWikiName/$','addWikiName',name='addWikiName'),#添加wiki名称
+    url(r'^delWikiChapter/$','delWikiChapter',name='delWikiChapter'),#删除wiki教程的章节内容
+
 )

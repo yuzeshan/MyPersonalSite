@@ -1,5 +1,6 @@
 {% extends "wiki/wiki_base.html" %}
 {% load markup %}
+{% load chapterIndent %} <!--章节标题#号自定义模板过滤器-->
 {% block css %}
     <style>
         .lside{
@@ -50,6 +51,7 @@
         <div class="panel panel-default">
             <div class="panel-body">
                 {% if wiki_con %}
+                    <h4>{{ wiki_con.chapter|chapterindent }}</h4>
                     <p class="text-muted" style="margin: 5px 0px 5px 5px;">
                         {{ wiki_con.counts }}次阅读&nbsp;&nbsp;&nbsp;{{ wiki_con.add_date|date:"Y/m/d H:i" }}
                     </p>
@@ -58,12 +60,47 @@
                 {% else %}
                     <p style="margin-bottom: 50%;">
                         这是一个{{ wiki_name.name }}，由笔者根据自己学习及参考网上技术博客的前提下，撰写完成。<br/>
-                        由于，本人水平有限，出现疏漏和错误难免...
+                        由于，本人水平有限，出现疏漏和错误难免,欢迎多多反馈哈！！！
                     </p>
                 {% endif %}
             </div>
         </div>
+        <hr/>
+        <p style="margin-bottom: 60px;">
+            {% if pg.pre %}
+                <a href="/wiki/{{ pg.pre }}/" class="label label-info pull-left" style="width: 180px;height: 25px; line-height: 22px;font-size: 15px;">
+                    上一篇:
+                    {{ pre_chapter|chapterindent }}
+                </a>
+            {% endif %}
+            {% if pg.nt %}
+                <a href="/wiki/{{ pg.nt }}/" class="label label-info pull-right" style="width: auto;height: 25px; line-height: 22px;font-size: 15px;">
+                    下一篇:
+                    {{ nt_chapter|chapterindent }}
+                </a>
+            {% endif %}
 
+        </p>
+        <hr/>
+        {% if wiki_con %}
+         <!-- 多说评论框 start -->
+        <div class="ds-thread" data-thread-key="{{ wiki_con.id }}" data-title="{{ wiki_con.chapter }}"
+             data-url="{{ wiki_con.get_absolute_url }}" ></div>
+        <!-- 多说评论框 end -->
+        <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+        <script type="text/javascript">
+            var duoshuoQuery = {short_name:"shanyuze1029"};
+            (function() {
+                var ds = document.createElement('script');
+                ds.type = 'text/javascript';ds.async = true;
+                ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+                ds.charset = 'UTF-8';
+                (document.getElementsByTagName('head')[0]
+                 || document.getElementsByTagName('body')[0]).appendChild(ds);
+            })();
+        </script>
+        <!-- 多说公共JS代码 end -->
+        {% endif %}
 
     </div>
 {% endblock %}

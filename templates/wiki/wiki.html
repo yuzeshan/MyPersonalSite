@@ -13,7 +13,7 @@
             margin-left: 8%;
 
         }
-        #wiki_row{
+        .wiki_row{
             float: left;
             margin-right: 22px;
             border: 1px solid #ccc;
@@ -41,12 +41,14 @@
     <div class="col-md-10" id="wiki_index">
         {% if names %}
             {% for obj in names %}
-                <div class="row" id="wiki_row">
+                <div class="row wiki_row" id="wikiName_{{ obj.id }}">
                     <a  href="{{ obj.get_absolute_url }}"style="text-decoration: none;">
                      <div id="wiki_img" style="background-image:url({{ obj.img }});">
                             <span style="color: #333;">{{ obj.name }}</span>
                             {% if user.is_authenticated %}
-                                <a href="#" class="label label-danger" style="font-size: 12px;">删除</a>
+                                <a href="javascript:;" class="label label-danger" style="font-size: 12px;" onclick="delWikiName({{ obj.id }})">
+                                    删除
+                                </a>
                                 <a href="/manage/addWiki/{{ obj.id }}" class="label label-warning" style="font-size: 12px;">添加</a>
                             {% endif %}
                         </div>

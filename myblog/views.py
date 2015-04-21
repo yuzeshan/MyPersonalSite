@@ -29,13 +29,13 @@ def blog(request,pk):
     categories=Category.objects.all()
     blog.counts+=1
     blog.save()   #这是必须的，否则数据库参数不变化
-    pg=get_neighbor(pk)  #获取上下篇博客的id
+    pg=get_neighbor(Blog,pk)  #获取上下篇博客的id
     return render_to_response('blog.html',
                               {'blog':blog,'categories':categories,'pg':pg,
                                'is_blog_view':True},
                               context_instance=RequestContext(request))
 
-def get_neighbor(id):
+def get_neighbor(obj,id):#这里添加了obj，使其通用化，传过来的是model模型
     """获取上一篇 下一篇博客id的索引
     这里利用博客列表的id索引，而不是直接利用id
     因为如果，id不连续就不行了
@@ -44,7 +44,7 @@ def get_neighbor(id):
     #获取数据库中博客id列表
     #比如：[1l,2l,5l,6l]
     id=int(id) #因为传过来的id为字符串
-    blogs_id=Blog.objects.values_list('id',flat=True).order_by('id')
+    blogs_id=obj.objects.values_list('id',flat=True).order_by('id')
     blogs_id=list(blogs_id)
     dic={}
     if blogs_id:
@@ -287,13 +287,26 @@ def wiki_name(request,pk):
 
 def wiki_con(request,pk):
     """wiki章节内容"""
+    context={}
     wiki_con=Wiki.objects.get(pk=pk)#获取一个wiki对象
     wiki_name=Wiki_Name.objects.get(pk=wiki_con.name.id)
     wikis=wiki_name.wiki_set.all().order_by('id')
+    pg=get_neighbor(Wiki,pk) #获取上下篇wiki
+    if pg['pre']:
+        pre_chapter=Wiki.objects.get(pk=pg['pre']).chapter
+        context['pre_chapter']=pre_chapter
+    if pg['nt']:
+        nt_chapter=Wiki.objects.get(pk=pg['nt']).chapter
+        context['nt_chapter']=nt_chapter
+    context['wiki_con']=wiki_con
+    context['wiki_name']=wiki_name
+    context['wikis']=wikis
+    context['pg']=pg
+
+
     wiki_con.counts+=1
     wiki_con.save()   #这是必须的，否则数据库参数不变化
-    return render_to_response('wiki/wikiContent.html',
-                              {'wiki_con':wiki_con,'wikis':wikis,'wiki_name':wiki_name},
+    return render_to_response('wiki/wikiContent.html',context,
                               context_instance=RequestContext(request))
 
 
