@@ -10,4 +10,6 @@ urlpatterns = patterns('manager.views',
     url(r'^add_type/$','addType',name='addType'),#增加类型名称
     url(r'^delType/$','delType',name='delType'),#删除类型
     url(r'^delTag/$','delTag',name='delTag'),#删除标签
+
+    url(r'^addWiki/(?P<pk>\d+)/$', 'addWiki',name='addWiki'),      #添加wiki内容
 )

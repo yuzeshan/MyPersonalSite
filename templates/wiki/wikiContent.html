@@ -1,0 +1,90 @@
+{% extends "wiki/wiki_base.html" %}
+{% load markup %}
+{% block css %}
+    <style>
+        .lside{
+            padding-left: 10%;
+        }
+        .rside{
+            padding-right: 15%;
+        }
+        a{
+            color: #0088cc;
+        }
+        a:hover{
+            color: rgb(209,72,54);
+        }
+        .wiki_list li{
+            list-style: none;
+        }
+    </style>
+{% endblock %}
+
+{% block content %}
+    <!--左侧wiki目录栏-->
+    <div class="col-md-4 lside">
+        <div class="panel panel-default" style="margin-top: 20px;width: 85%;">
+            <div class="panel-heading">
+                <h3 class="panel-title"><a href="{{ wiki_name.get_absolute_url }}" >{{ wiki_name.name }}</a></h3>
+            </div>
+            <div class="panel-body">
+                <ul class="wiki_list">
+                    {% for wiki in wikis %}
+                        <li>
+                            <a href="{{ wiki.get_absolute_url }}">
+                                {{ wiki.chapter }}
+                            </a>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+        {% include "userinfo.html" %}
+
+
+    </div>
+    <!--右侧wiki章节内容栏-->
+    <div class="col-md-8 rside">
+        <h3>{{ wiki_name.name }}</h3>
+
+        <div class="panel panel-default">
+            <div class="panel-body">
+                {% if wiki_con %}
+                    <p class="text-muted" style="margin: 5px 0px 5px 5px;">
+                        {{ wiki_con.counts }}次阅读&nbsp;&nbsp;&nbsp;{{ wiki_con.add_date|date:"Y/m/d H:i" }}
+                    </p>
+                    <hr style="margin-bottom: 2px;"/>
+                    <p>{{ wiki_con.content|custom_markdown|safe }}</p>
+                {% else %}
+                    <p style="margin-bottom: 50%;">
+                        这是一个{{ wiki_name.name }}，由笔者根据自己学习及参考网上技术博客的前提下，撰写完成。<br/>
+                        由于，本人水平有限，出现疏漏和错误难免...
+                    </p>
+                {% endif %}
+            </div>
+        </div>
+
+
+    </div>
+{% endblock %}
+{% block js %}
+    <script>
+        $(function(){
+            //这些面实现章节标题，的一级和二级层次排版
+            $('.wiki_list a').each(function(){
+                var t=$(this).html();
+                if (/##/.test(t)){
+                    $(this).html('&nbsp;&nbsp;&nbsp;'+ t.replace('##',''));
+                }else if(/#/.test(t)){
+                    $(this).html(t.replace('#',''));
+                }
+            });
+            $('.wiki_list a').click(function(){
+{#                this.style.color='rgb(209,72,54)';#}
+
+
+
+            });
+        });
+    </script>
+{% endblock %}

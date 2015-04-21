@@ -43,13 +43,14 @@
             {% for obj in names %}
                 <div class="row" id="wiki_row">
                     <a  href="{{ obj.get_absolute_url }}"style="text-decoration: none;">
-                        <div id="wiki_img" style="background-image:url({{ obj.img }});">
-                            {{ obj.name }}
+                     <div id="wiki_img" style="background-image:url({{ obj.img }});">
+                            <span style="color: #333;">{{ obj.name }}</span>
+                            {% if user.is_authenticated %}
+                                <a href="#" class="label label-danger" style="font-size: 12px;">删除</a>
+                                <a href="/manage/addWiki/{{ obj.id }}" class="label label-warning" style="font-size: 12px;">添加</a>
+                            {% endif %}
                         </div>
-                        {#        <div class="info">#}
-                        {#            <h4 class="title">基于iframe的单页应用组件</h4>#}
-                        {#            <p>一款基于iframe的单页应用组件，用在音频、IM类站点，避免因页面跳转而引起的播放停顿、聊天状态丢失等问题。</p>#}
-                                    {#        </div>#}
+
                     </a>
                 </div>
             {% endfor %}

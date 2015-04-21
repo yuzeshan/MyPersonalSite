@@ -1,0 +1,143 @@
+{% extends "wiki/wiki_base.html" %}
+{% block css %}
+    <style>
+        .form-panel{
+            width: 90%;
+            margin: 20px 0px 0px 10%;
+            padding: 1% 0 0 0;
+        }
+        #wiki_buttons button{
+            margin:0 3px 2px 3px;
+            cursor: auto;
+            border-top-right-radius:0;
+            border-bottom-right-radius:0;
+
+        }
+        .wikiname_del{
+                vertical-align: top;
+                display: inline-block;
+                font-size: 8px;
+                height: 34px;
+                margin-left: -7px;
+                border-top-left-radius:0;
+                border-bottom-left-radius:0;
+                cursor: pointer;
+            }
+    </style>
+{% endblock %}
+
+{% block content %}
+    <!--左侧wiki添加内容栏-->
+    <div class="col-md-9 lside">
+        <div class="panel panel-default form-panel">
+        <div class="panel-body">
+            <form class="form-Sinin" action="/manage/addWiki/{{ wiki_name.id }}/" method="post" id="addWiki">
+                {% csrf_token %}
+                <h2 class="form-heading">撰写Wiki--{{ wiki_name.name }}</h2>
+                <p><b>章节标题:</b></p>
+                {{ form.chapter }}
+                <p style="margin-top: 10px;"><b>Wiki名称:</b></p>
+                <!--下面为wiki名称列表,并且可以通过模态框添加wiki名称-->
+                <div class="btn-group" id="wiki_buttons" style="margin-bottom: 10px">
+                    <span>
+                        {% for wikiname in wiki_names %}
+                            <button type="button" class="btn btn-primary" id="c_{{ wikiname.id }}" >
+                                {{ wikiname.name }}
+                            </button>
+                            <span class="label label-primary label-sm wikiname_del" id="wikiname_{{ wikiname.id }}">&times;</span>
+                        {% endfor %}
+                       <input type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#addwikiname"  value="添加分类" id="adds" onclick="(function(){
+                           //操作初始化
+                           $('#sendok').hide();
+                           $('#wiki_input').show();
+                       })()">
+
+                    </span>
+                </div>
+                <div class="panel panel-default" style="margin-top: 20px;">
+                    <div class="panel-heading">
+                        内容:
+                    </div>
+                    <div class="panel-body">
+                        {{ form.media }}
+                        {{ form.content }}
+                    </div>
+                </div>
+                <!--预览-->
+                <div class="panel panel-default" id="prew_box">
+                    <div class="panel-heading">
+                        内容即时预览
+                    </div>
+                    <div class="panel-body">
+                        <div id="prew_c"></div>
+                    </div>
+                </div>
+                <input type="hidden" name="edit_or_creat" value="{{ is_edit }}" />
+                <a href="javascript:;" class="btn btn-primary btn-block btn-lg" style="display: block;margin-top: 20px;" id="wikisubmit" data-loading-text="正在加载...">发布</a>
+            </form>
+
+            <hr style="margin-top: 10%;"/>
+            <br/>
+        </div>
+        </div>
+
+    </div>
+    <!--添加wiki名称的模态框，基于bootstrap实现-->
+    <div class="modal fade" id="addwikiname" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="exampleModalLabel">添加Wiki名称</h4>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="form-group" id="wiki_input">
+                            <label for="wiki_name" class="control-label">名称:</label>
+                            <p class="small" style="color: #c04b4b; font-weight: bold; display: none" id="warn_info">*类型名称必填</p>
+                            <input type="text" class="form-control" id="wiki_name">
+                        </div>
+                        <div class="form-group" id="sendok" style="display: none;">
+                            <p style="color: rgb(79,181,116); font-weight: bold; " class="info">恭喜，类型添加成功!</p>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal" onclick="(function(){
+                        $('#warn_info').hide();//关闭模态框是将提示隐藏
+                        })()"
+                        >Close</button>
+                    <button type="button" class="btn btn-primary" onclick="addWikiname()">添加</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--右侧信息边栏-->
+    <div class="col-md-3 rside" >
+        {% include "userinfo.html" %}
+        <div class="panel panel-default" style="width: 85%;height: 85%;">
+            <div class="panel-heading">{{ wiki_name.name }}内容目录</div>
+            <div class="panel-body">
+                {% if wikis %}
+                    <p>
+                        {% for w in wikis %}
+                            <a href="{{ w.get_absolute_url }}" class="label label-warning" style="display: block;margin: 5px auto;width: 200px;height:40px;line-height: 40px;">
+                                {{ w.chapter }}
+                            </a>
+                        {% endfor %}
+                    </p>
+                {% endif %}
+            </div>
+        </div>
+
+    </div>
+{% endblock %}
+
+<!--下面的js代码是为了实现将wmd编辑的内容预览放在自定义的div中-->
+{% block js %}
+    <script>
+        $(function() {
+            $('#prew_c').append($('.wmd-panel:last'));
+        });
+    </script>
+{% endblock %}

@@ -281,7 +281,19 @@ def wiki_name(request,pk):
         wiki_name=Wiki_Name.objects.get(pk=pk)
     except Wiki_Name.DoesNotExist:  #如果分类不存在，则引起404错误
         raise Http404
-    wikis=wiki_name.wiki_set.all()
-    return render_to_response('',{'wikis':wikis},context_instance=RequestContext(request))
+    wikis=wiki_name.wiki_set.all().order_by('id')
+    return render_to_response('wiki/wikiContent.html',{'wikis':wikis,'wiki_name':wiki_name},
+                              context_instance=RequestContext(request))
+
+def wiki_con(request,pk):
+    """wiki章节内容"""
+    wiki_con=Wiki.objects.get(pk=pk)#获取一个wiki对象
+    wiki_name=Wiki_Name.objects.get(pk=wiki_con.name.id)
+    wikis=wiki_name.wiki_set.all().order_by('id')
+    wiki_con.counts+=1
+    wiki_con.save()   #这是必须的，否则数据库参数不变化
+    return render_to_response('wiki/wikiContent.html',
+                              {'wiki_con':wiki_con,'wikis':wikis,'wiki_name':wiki_name},
+                              context_instance=RequestContext(request))
 
 

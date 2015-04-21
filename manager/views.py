@@ -1,8 +1,8 @@
 #-*- coding:utf-8 -*-
 from django.shortcuts import render_to_response,HttpResponseRedirect,HttpResponse
 from django.template import RequestContext
-from common.form import BlogForm,ChangePwdForm
-from models import Blog,Tag,Blog_tag,Category
+from common.form import BlogForm,ChangePwdForm,WikiForm
+from models import *
 from BeautifulSoup import BeautifulSoup
 import random
 from myblog.views import tagsCloud
@@ -85,6 +85,7 @@ def addBlog(request):
 
     return render_to_response('manager/addBlog.html',context,
         context_instance=RequestContext(request))
+
 
 @csrf_exempt
 def addType(request):
@@ -235,6 +236,43 @@ def changePwd(request):
 
     return render_to_response('manager/changePwd.html',context,
                               context_instance=RequestContext(request))
+
+
+def addWiki(request,pk):
+    """添加指定wiki名称下的章节内容(要一一添加章节内容，一个章节对应一个数据表列，一个id)
+    标题名格式:#***(一级标题，***为内容),##***(二级标题，***为内容)
+    至于，一级标题和二级标题的首字indent则由模板中处理
+    """
+    context={}
+    wiki_names=Wiki_Name.objects.all()      #获取所有wiki列表
+    wiki_name=Wiki_Name.objects.get(pk=pk)  #获取wiki名称对象
+    wikis=wiki_name.wiki_set.all() .order_by('id')         #获取该wiki名称下的所有wiki内容
+    context['wiki_names']=wiki_names
+    context['wiki_name']=wiki_name
+    context['wikis']=wikis
+    if request.method=='POST':
+        form=WikiForm(request.POST)
+        if form.is_valid():
+            form_data=form.cleaned_data
+            chapter=form_data.get('chapter')#获取章节标题
+            content=form_data.get('content')#获取章节内容
+            wiki=Wiki.objects.create(name=wiki_name,chapter=chapter,content=content)
+            return HttpResponseRedirect('/wiki/')
+        else:
+            return render_to_response('manager/addWiki.html',context,
+        context_instance=RequestContext(request))
+
+
+    else:
+        form=WikiForm()
+        context['form']=form
+
+    return render_to_response('manager/addWiki.html',context,
+        context_instance=RequestContext(request))
+
+
+
+
 
 
 

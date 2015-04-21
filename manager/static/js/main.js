@@ -9,6 +9,7 @@ $(function ($) {
     addBlog_Init();//为类型和标签输入框添加选中的类型名和标签名
     uploadBlog_Init();
     navigator_switch();
+    addWiki_Init();
 })//html文档加载后，运行这些代码
 
 /*下面为返回顶部图标js代码*/
@@ -161,6 +162,18 @@ function uploadBlog_Init(){
         $('#uploadBlog').submit();//将发布按钮（未设置type="submit"）设置为submit
     });
 }
+//wiki表单提交验证,并设置提交
+function addWiki_Init(){
+    $('#wikisubmit').click(function() {
+        if (!$('#id_chapter').val()) {
+            alert('请填写章节标题!');
+            return false;
+        }
+        $('#addWiki').submit();//将发布按钮（未设置type="submit"）设置为wikisubmit
+
+    });
+
+}
 
 //获取标签,并将其以字符串的形式存入数组里
 function getTags(){
@@ -226,7 +239,7 @@ function navigator_switch(){
 //        });
 //    });
     //暂时解决方案，不好
-    var path = window.location.pathname;
+    var path = (window.location.pathname).toLowerCase();//将获得的路径字符串全部转换为小写
     if(path.indexOf('wiki') > -1){
         $('.navgator li').removeClass();
         $('#wiki').addClass('active');

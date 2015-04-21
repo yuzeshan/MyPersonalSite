@@ -32,6 +32,7 @@ urlpatterns += patterns('myblog.views',
 
     url(r'^wiki/$', 'wiki', name='wiki'),   # 维基内容
     url(r"^wiki_name/(?P<pk>\d+)/$",'wiki_name',name='wiki_name'),#维基名检索
+    url(r"^wiki/(?P<pk>\d+)/$",'wiki_con',name='wiki'),#维基名章节内容，注意name要与url相同，而不一定要与view一致
 
 
 )

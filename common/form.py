@@ -116,6 +116,14 @@ class BlogForm(forms.Form):
     #     model=Blog   #用Blog模型来生成博客后台表单
     #     # fields=['title','is_show','content']#选择模型中要显示的字段
 
+class WikiForm(forms.Form):
+    """wiki添加表单类"""
+    chapter=forms.CharField(label=u'章节标题',max_length=500,
+                          widget=forms.TextInput(
+                              attrs={'class':'form-control','placeholder':u'章节标题,格式:#***(一级标题,***为标题名),##***(为二级标题)','required':'',}
+                          ))
+    #-----下面为wmd markdown编辑器表单配置-----------
+    content=forms.CharField(widget=MarkDownInput())
 
 class ChangePwdForm(forms.Form):
     """修改账户密码表单类"""
