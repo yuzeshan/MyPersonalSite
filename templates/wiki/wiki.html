@@ -2,10 +2,11 @@
 {% block css %}
     <style>
         body{
-            background: url("{{ STATIC_URL }}img/bg1.jpg") no-repeat 0 0 ;
+            background: url("{{ STATIC_URL }}img/bg2.jpg") repeat scroll 0 0 #eee;
             background-size: cover;
             background-attachment: fixed;
             overflow-x: hidden;
+
         }
 
         #wiki_index{
@@ -15,46 +16,106 @@
         }
         .wiki_row{
             float: left;
-            margin-right: 22px;
+            margin-right: 30px;
             border: 1px solid #ccc;
-            border-radius: 2px;
+            border-radius: 10px;
             margin-bottom: 15px;
             margin-top: 30px;
+            overflow: hidden;
+            position: relative;
+            box-shadow: 0 0 5px rgba(150,0,255,0.5);
+
         }
         #wiki_img{
-            width: 284px;
+            width: 278px;
             height: 300px;
             background-size: cover;
             text-align: center;
-            line-height: 300px;
+            line-height: 200px;
             font-size: 20px;
             font-weight:bold;
             color: #333;
             text-decoration: none;
+
+        }
+        .wiki_row .info{
+            height: auto;
+            opacity: 0;
+            position: absolute;
+            transition: all 0.15s ease-out 0.06s;
+            background: none repeat scroll 0 0 #fff;
+            bottom: -30px;
+            width: 100%;
+            text-align: center;
+            color: #3c3c3c;
+        }
+
+        #wiki_img .showicon {
+            color: #fff;
+            font-size: 80px;
+            opacity: 0;
+            position: absolute;
+            top:70px;
+            left: 100px;
+            transform: scale(1.6);
+            transition: all 0.15s ease-out 0.06s;
+            z-index:2;
+        }
+        #wiki_img .showicon {
+            font-style: normal;
         }
 
     </style>
 {% endblock %}
 
 {% block content %}
-
     <div class="col-md-10" id="wiki_index">
         {% if names %}
             {% for obj in names %}
-                <div class="row wiki_row" id="wikiName_{{ obj.id }}">
-                    <a  href="{{ obj.get_absolute_url }}"style="text-decoration: none;">
-                     <div id="wiki_img" style="background-image:url({{ obj.img }});">
-                            <span style="color: #333;">{{ obj.name }}</span>
-                            {% if user.is_authenticated %}
-                                <a href="javascript:;" class="label label-danger" style="font-size: 12px;" onclick="delWikiName({{ obj.id }})">
-                                    删除
+{#                <div class="row wiki_row" id="wikiName_{{ obj.id }}">#}
+{#                    <a  href="{{ obj.get_absolute_url }}"style="text-decoration: none;">#}
+{#                        <div id="wiki_img" style="background-image:url({{ obj.img }});">#}
+{#                            <span style="color: #3c3c3c;font-weight:bold;font-family: Georgia, 'New York', serif;">#}
+{#                                <i class="fa fa-book"></i>{{ obj.name }}#}
+{#                            </span>#}
+{#                            {% if user.is_authenticated %}#}
+{#                                <a href="javascript:;" class="label label-danger" style="font-size: 12px;" onclick="delWikiName({{ obj.id }})">#}
+{#                                    删除#}
+{#                                </a>#}
+{#                                <a href="/manage/addWiki/{{ obj.id }}" class="label label-warning" style="font-size: 12px;">添加</a>#}
+{#                            {% endif %}#}
+{#                        </div>#}
+{#                        <div class="info">#}
+{#                            <h4 style="color: #222222;font-weight: bold;">{{ obj.name }}</h4>#}
+{#                            <p>一个{{ obj.name }},由笔者亲自编写，力求简单明了,欢迎多多反馈.</p>#}
+{#                        </div>#}
+{##}
+{#                    </a>#}
+                    <div class="row wiki_row" id="wikiName_{{ obj.id }}">
+                            <div id="wiki_img" style="background-image:url({{ obj.img }});">
+                                <a  href="{{ obj.get_absolute_url }}"style="text-decoration: none;">
+                                    <span style="color: #3c3c3c;font-weight:bold;font-family: Georgia, 'New York', serif;">
+                                    <i class="fa fa-book"></i>{{ obj.name }}
+                                </span>
                                 </a>
-                                <a href="/manage/addWiki/{{ obj.id }}" class="label label-warning" style="font-size: 12px;">添加</a>
-                            {% endif %}
-                        </div>
+                                <a href="{{ obj.get_absolute_url }}"><i class="fa fa-folder-open-o showicon"></i></a>
+                                <div style="line-height: 0px;">
+                                    {% if user.is_authenticated %}
+                                    <a href="javascript:;" class="label label-danger" style="font-size: 12px;margin-right: 5px;" onclick="delWikiName({{ obj.id }})">
+                                        删除
+                                    </a>
+                                    <a href="/manage/addWiki/{{ obj.id }}" class="label label-warning" style="font-size: 12px;">添加</a>
+                                    {% endif %}
+                                </div>
 
-                    </a>
-                </div>
+                            </div>
+                            <div class="info">
+                                <h4 style="color: #222222;font-weight: bold;">{{ obj.name }}</h4>
+                                <p>一个{{ obj.name }},由笔者亲自编写，力求简单明了,欢迎多多反馈.</p>
+                            </div>
+
+
+                    </div>
             {% endfor %}
         {% else %}
             <div class="alert alert-danger" role="alert" style="margin:50px auto 200px;width: 50%;">还没有建立任何Wiki哦!</div>
@@ -62,6 +123,57 @@
 
     </div>
 {% endblock %}
+
+
+
+
+/*实现遮罩模糊效果css*/
+        /*body{
+            background: url("{{ STATIC_URL }}img/mask.png") repeat scroll 0 0 #eee;
+            background-size: cover;
+            background-attachment: fixed;
+            overflow-x: hidden;
+            position: absolute;
+
+        }
+       .gallayer {
+            background: none repeat scroll 0 0 #eee;
+            height: 100%;
+            left: 0;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 0;
+        }
+        .mask {
+            background-image: url("{{ STATIC_URL }}img/bg1.jpg");
+            display: block;
+            background-position: center center;
+            background-size: cover;
+            height: 100%;
+            width: 100%;
+            left: 0;
+            overflow: hidden;
+            position: absolute;
+            top: 0;
+            z-index: 11;
+        }
+        .galMask {
+            background: url("{{ STATIC_URL }}img/mask.png") repeat scroll 0 0 rgba(0, 0, 0, 0);
+            height: 100%;
+            left: 0;
+            overflow: hidden;
+            position: absolute;
+            text-indent: -100em;
+            top: 0;
+            width: 100%;
+            z-index: 12;
+        }*/
+
+{#<div class="gallayer">#}
+{#        <div class="mask"></div>#}
+{#        <div class="galMask"></div>#}
+{#    </div>#}
 
 
 

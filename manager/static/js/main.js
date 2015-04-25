@@ -305,6 +305,29 @@ function delWikiChapter(id){
     }
 
 }
+//wiki列表鼠标放上去显示提示信息
+
+$('.wiki_row').mouseover(function(){
+    var c=this.children[1];
+    c.style.bottom='0'+'px';
+    c.style.opacity='1';
+    var i=this.children[0].children[1].children[0];
+    i.style.opacity='1';
+    i.style.transform='scale(1)';
+
+
+});
+$('.wiki_row').mouseout(function(){
+    var c=this.children[1];
+    c.style.opacity='0';
+    c.style.bottom='-30'+'px';
+    var i=this.children[0].children[1].children[0];
+    i.style.transform='scale(1.6)';
+    i.style.opacity='0';
+
+
+
+});
 
 /*-------------上面是处理wiki的js代码-----end-----*/
 

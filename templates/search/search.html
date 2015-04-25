@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% load highlight %}
+{% load chapterIndent %}
 {% block content %}
     {% if query %}
         <div class="panel panel-default" style="margin-left:5%;padding: 20px 50px;width: 90%;">
@@ -13,7 +14,7 @@
                  </div>
                  {% for result in page.object_list %}
                     <p>
-                        <span class="label label-primary" style="vertical-align: 3px;">{{ forloop.counter }}</span>.<a href="{{ result.object.get_absolute_url }}" style="font-size: 20px;">{{ result.object.title }}</a>
+                        <span class="label label-primary" style="vertical-align: 3px;">{{ forloop.counter }}</span>.<a href="{{ result.object.get_absolute_url }}" style="font-size: 20px;">{{ result.object.title }}{{ result.object.chapter|chapterindent  }}</a>
                         <hr style="margin-top: 10px;"/>
                         {% highlight  result.object.content with query css_class "label label-danger" %}
                     </p>
