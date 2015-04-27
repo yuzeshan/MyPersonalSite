@@ -17,7 +17,8 @@ urlpatterns += patterns('',
    (r'^site_media/(?P<path>.*)$', 'django.views.static.serve',{'document_root':settings.STATIC_ROOT}),
 )
 urlpatterns += patterns('myblog.views',
-    url(r'^$', 'index', name='index'),   #首页
+    url(r'^$', 'home', name='home'),   #站点首页
+    url(r'^index/$', 'index', name='index'),   #博客列表页面
     # url(r'^blog/search/$','search',name='search'),#博客检索
     url(r'^sideInfo/$','sideInfo',name='sideInfo'),#异步侧边栏的加载，其实就是ajax返回html页面后加载
     url(r"^blog/(?P<pk>\d+)/$",'blog',name='blog'),#博客具体内容页面

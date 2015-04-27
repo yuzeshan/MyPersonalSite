@@ -1,5 +1,5 @@
 #-*- coding:utf-8 -*-
-from django.shortcuts import render_to_response,Http404,HttpResponseRedirect,render
+from django.shortcuts import render_to_response,Http404,HttpResponseRedirect,HttpResponse
 from django.template import RequestContext
 from manager.models import *  #导入manager中的全部models
 from django.contrib.auth.models import User
@@ -10,8 +10,12 @@ import random
 #下面防止ajax post出现403错误
 from django.views.decorators.csrf import csrf_exempt
 
+def home(request):
+    """站点首页"""
+    return HttpResponse('还在建造中，敬请期待...')
+
 def index(request):
-    """首页"""
+    """博客列表首页"""
     blogs=Blog.objects.all()
     categories=Category.objects.all()
     hot_blogs=Blog.objects.order_by("-counts")[:15]
