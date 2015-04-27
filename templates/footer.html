@@ -1,26 +1,54 @@
 <footer class="foot-above">
     <div class="container">
         <div class="row">
-            <div class="col-lg-4 ">
+            <div class="col-lg-9">
+                <div class="row">
+                    <div class="col-md-3">
+                        <div style="text-align:center;">
+                            <a target="_blank" href="http://webdesignerwall.com/tutorials/responsive-design-with-css3-media-queries">
+                                <img width="100%" height="140px" src="{{ STATIC_URL }}img/platform.png">
+                            </a>
+                        </div>
+                    </div>
+                    <div id="foot-powered-by" class="col-md-9">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <span style="font-size: 20px;font-weight: bold;">Powered by:</span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <a href="http://getbootstrap.com/" target="_blank">
+                                    <img width="130px" height="30px" src="{{ STATIC_URL }}img/foot-logo-bootstrap.png">
+                                </a>
+                            </div>
+                            <div class="col-md-4">
+                                <a href="http://jquery.com/" target="_blank">
+                                    <img width="120px" height="30px" src="{{ STATIC_URL }}img/foot-logo-jquery.png">
+                                </a>
+                            </div>
+                            <div class="col-md-4">
+                                <a href="http://www.mysql.com/" target="_blank">
+                                    <img width="120px" height="37px" src="{{ STATIC_URL }}img/foot-logo-mysql.png">
+                                </a>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <a href="https://www.python.org/" target="_blank">
+                                    <img width="120px" height="30px" src="{{ STATIC_URL }}img/foot-logo-python.png">
+                                </a>
+                            </div>
+                            <div class="col-md-4">
+                                <a href="https://www.djangoproject.com/" target="_blank"> Django </a>
+                            </div>
+                        </div>
 
-                <p style="color: #ffffff;font-size: 13px;font-family: Helvetica, Arial, sans-serif;">联系方式</p>
-                <ul style="color: #ffffff;">
-                    <li><a href="http://weibo.com/yuzeshan" class="lk" target="_blank">新浪微博</a></li>
-                    <li><a href="" title="ID=yuzeshan123" class="lk">微信</a></li>
-                    <li><a href="https://github.com/yuzeshan" class="lk" target="_blank">Github</a></li>
-                </ul>
+                    </div>
+                </div>
 
             </div>
-            <div class="col-lg-4">
-                <p style="color: #ffffff;font-size: 13px;font-family: Helvetica, Arial, sans-serif;">站点导航</p>
-                <ul style="color: #ffffff;">
-                    <li><a href="#" class="lk">另一个站点</a></li>
-                    <li><a href="#" class="lk">吾之喜爱</a></li>
-                    <li><a href="#" class="lk">About</a></li>
-                </ul>
-
-            </div>
-            <div class="col-lg-4">
+            <div class="col-lg-3">
                <h4><a href="/pigeonhole/">博客归档</a></h4>
             </div>
         </div>
@@ -29,14 +57,29 @@
 <div class="foot-below">
     <div class="container">
         <div class="row">
-            <div class="col-lg-6">
+            <div class="col-lg-4" style="text-align: left;">
                 <p style="color:gray;">
                    <a href="https://docs.djangoproject.com/en/1.6/" target="_blank">Made by Django</a>
-                   |Shanyuze
+                   |Shanyuze&copy;2014-2015
                 </p>
             </div>
+            <div class="col-lg-4" style="text-align: center;">
+{#                <span>Link:</span>#}
+                <ul>
+                    <li>
+                        <a href="https://github.com/yuzeshan" target="_blank"><i class="fa fa-github fa-lg"></i></a>
+                    </li>
+                    <li>
+                        <a href="http://weibo.com/yuzeshan" target="_blank"><i class="fa fa-weibo fa-lg"></i></a>
+                    </li>
+                    <li>
+                        <a href="#" name="yuzeshan123"><i class="fa fa-wechat fa-lg" title="wechatID=yuzeshan123"></i></a>
+                    </li>
+                </ul>
 
-            <div class="col-lg-6" style="padding-left: 38%;">
+            </div>
+
+            <div class="col-lg-4" style="text-align: right;">
                 <p><a href="/login/">登 录</a> <i class="fa fa-sun-o fa-lg" style="color: greenyellow;"></i> <a href="#">撰写Wiki</a></p>
             </div>
         </div>
