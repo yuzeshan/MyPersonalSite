@@ -54,34 +54,65 @@
         </div>
     </div>
 </footer>
-<div class="foot-below">
+<!--下面为自定义foot-below结构-->
+{#<div class="foot-below">#}
+{#    <div class="container">#}
+{#        <div class="row">#}
+{#            <div class="col-lg-4" style="text-align: left;">#}
+{#                <p style="color:gray;">#}
+{#                   <a href="https://docs.djangoproject.com/en/1.6/" target="_blank">Made by Django</a>#}
+{#                   |Shanyuze&copy;2014-2015#}
+{#                </p>#}
+{#            </div>#}
+{#            <div class="col-lg-4" style="text-align: center;">#}
+{#                <span>Link:</span>#}
+{#                <ul>#}
+{#                    <li>#}
+{#                        <a href="https://github.com/yuzeshan" target="_blank"><i class="fa fa-github fa-lg"></i></a>#}
+{#                    </li>#}
+{#                    <li>#}
+{#                        <a href="http://weibo.com/yuzeshan" target="_blank"><i class="fa fa-weibo fa-lg"></i></a>#}
+{#                    </li>#}
+{#                    <li>#}
+{#                        <a href="#" name="yuzeshan123"><i class="fa fa-wechat fa-lg" title="wechatID=yuzeshan123"></i></a>#}
+{#                    </li>#}
+{#                </ul>#}
+{##}
+{#            </div>#}
+{##}
+{#            <div class="col-lg-4" style="text-align: right;">#}
+{#                <p><a href="/login/">登 录</a> <i class="fa fa-sun-o fa-lg" style="color: greenyellow;"></i> <a href="#">撰写Wiki</a></p>#}
+{#            </div>#}
+{#        </div>#}
+{#    </div>#}
+{#</div>#}
+<!--下面为重写foot-below结构-->
+<footer class="foot-below">
     <div class="container">
         <div class="row">
-            <div class="col-lg-4" style="text-align: left;">
-                <p style="color:gray;">
-                   <a href="https://docs.djangoproject.com/en/1.6/" target="_blank">Made by Django</a>
-                   |Shanyuze&copy;2014-2015
-                </p>
+            <div class="col-md-4">
+                <span class="copyright"><a  href="https://docs.djangoproject.com/en/1.6/" target="_blank">Made by Django</a>
+              |Shanyuze&copy;2014-2015</span>
             </div>
-            <div class="col-lg-4" style="text-align: center;">
-{#                <span>Link:</span>#}
-                <ul>
-                    <li>
-                        <a href="https://github.com/yuzeshan" target="_blank"><i class="fa fa-github fa-lg"></i></a>
+            <div class="col-md-4">
+                <ul class="list-inline social-buttons">
+                    <li><a href="https://github.com/yuzeshan" target="_blank"><i class="fa fa-github"></i></a>
                     </li>
-                    <li>
-                        <a href="http://weibo.com/yuzeshan" target="_blank"><i class="fa fa-weibo fa-lg"></i></a>
+                    <li><a href="http://weibo.com/yuzeshan" target="_blank"><i class="fa fa-weibo"></i></a>
                     </li>
-                    <li>
-                        <a href="#" name="yuzeshan123"><i class="fa fa-wechat fa-lg" title="wechatID=yuzeshan123"></i></a>
+                    <li><a href="#" name="yuzeshan123"><i class="fa fa-wechat" title="wechatID=yuzeshan123"></i></a>
                     </li>
                 </ul>
-
             </div>
+            <div class="col-md-4">
+                <ul class="list-inline quicklinks">
+                    <li>
+                        <a href="/login/">登 录</a> <i class="fa fa-sun-o fa-lg" style="color: greenyellow;"></i> <a href="#">撰写Wiki</a>
+                    </li>
 
-            <div class="col-lg-4" style="text-align: right;">
-                <p><a href="/login/">登 录</a> <i class="fa fa-sun-o fa-lg" style="color: greenyellow;"></i> <a href="#">撰写Wiki</a></p>
+                </ul>
             </div>
         </div>
     </div>
-</div>
+</footer>
+

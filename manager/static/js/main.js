@@ -10,6 +10,7 @@ $(function ($) {
     uploadBlog_Init();
     navigator_switch();
     addWiki_Init();
+
 })//html文档加载后，运行这些代码
 
 /*下面为返回顶部图标js代码*/
@@ -37,6 +38,7 @@ function goTopEx() {
         }
     }
   }
+
 // 首页删除博客按钮触发
 function delBlog(id){
     if(confirm('是否确定删除？')){

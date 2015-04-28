@@ -12,7 +12,7 @@ from django.views.decorators.csrf import csrf_exempt
 
 def home(request):
     """站点首页"""
-    return HttpResponse('还在建造中，敬请期待...')
+    return render_to_response('home.html')
 
 def index(request):
     """博客列表首页"""
