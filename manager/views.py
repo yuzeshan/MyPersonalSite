@@ -57,7 +57,7 @@ def addBlog(request):
             img=getBlogPic(blog.content)
             blog.img=img
             blog.save()
-            return HttpResponseRedirect('/')
+            return HttpResponseRedirect('/index/')
         else:
             return render_to_response('manager/addBlog.html',context,
                                       context_instance=RequestContext(request))
@@ -198,7 +198,7 @@ def uploadBlog(request):
         context['blog']=files
         context['errors']=errors
         if not errors:
-            return HttpResponseRedirect('/')
+            return HttpResponseRedirect('/index/')
 
 
 

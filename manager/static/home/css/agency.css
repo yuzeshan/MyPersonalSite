@@ -172,6 +172,7 @@ fieldset[disabled] .btn-xl.active {
 .navbar-default {
     border-color: transparent;
     background-color: #222;
+    font-size: 12px;
 }
 
 .navbar-default .navbar-brand {
@@ -272,19 +273,29 @@ header {
     -moz-background-size: cover;
     background-size: cover;
     -o-background-size: cover;
-}
 
+}
 header .intro-text {
     padding-top: 100px;
     padding-bottom: 50px;
 }
-
 header .intro-text .intro-lead-in {
     margin-bottom: 25px;
     font-family: "Droid Serif","Helvetica Neue",Helvetica,Arial,sans-serif;
     font-size: 22px;
     font-style: italic;
     line-height: 22px;
+}
+header .btn-circle {
+    background: none repeat scroll 0 0 rgba(0, 0, 0, 0);
+    border: 2px solid #fff;
+    border-radius: 100% !important;
+    color: #fff;
+    font-size: 40px;
+    height: 70px;
+    padding: 7px 16px;
+    transition: background 0.3s ease-in-out 0s;
+    width: 70px;
 }
 
 header .intro-text .intro-heading {
@@ -298,25 +309,24 @@ header .intro-text .intro-heading {
 
 @media(min-width:768px) {
     header .intro-text {
-        padding-top: 300px;
-        padding-bottom: 200px;
+        padding-top: 200px;
+        padding-bottom: 90px;
     }
 
     header .intro-text .intro-lead-in {
         margin-bottom: 25px;
         font-family: "Droid Serif","Helvetica Neue",Helvetica,Arial,sans-serif;
-        font-size: 40px;
+        font-size: 30px;
         font-style: italic;
-        line-height: 40px;
+        line-height: 30px;
     }
 
     header .intro-text .intro-heading {
         margin-bottom: 50px;
         text-transform: uppercase;
         font-family: Montserrat,"Helvetica Neue",Helvetica,Arial,sans-serif;
-        font-size: 75px;
-        font-weight: 700;
-        line-height: 75px;
+        font-size: 20px;
+        line-height: 20px;
     }
 }
 

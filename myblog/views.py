@@ -12,7 +12,7 @@ from django.views.decorators.csrf import csrf_exempt
 
 def home(request):
     """站点首页"""
-    return render_to_response('home.html')
+    return render_to_response('home.html',context_instance=RequestContext(request))
 
 def index(request):
     """博客列表首页"""
@@ -218,7 +218,7 @@ def login_(request):
                 if form.get_auto_login():       # set session
                     request.session.set_expiry(None)#设置是否自动登录
 
-                return HttpResponseRedirect('/')
+                return HttpResponseRedirect('/index/')
 
 
     else:
@@ -233,7 +233,7 @@ def login_(request):
 def logout_(request):
     """登出/注销"""
     logout(request)
-    return HttpResponseRedirect('/')
+    return HttpResponseRedirect('/index/')
 
 
 def ciphertext(request,pk=None):
