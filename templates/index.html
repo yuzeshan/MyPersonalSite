@@ -67,12 +67,12 @@
             <h1>博客归档</h1>
         </div>
         <div class="panel-body">
+            <p class="text-muted">
+                迄今为止,博主已经写了<code>{{ i.counts }}</code>篇博客了,继续努力中!<br/>
+                <br/>人的一生是短的，但如果卑劣地过这短的一生，就太长了. <br/>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&minus;&minus;莎士比亚
+            </p>
             {% for i in blogs_info %}
-                <p class="text-muted">
-                    迄今为止,博主已经写了<code>{{ i.counts }}</code>篇博客了,继续努力中!<br/>
-                    <br/>人的一生是短的，但如果卑劣地过这短的一生，就太长了. <br/>
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&minus;&minus;莎士比亚
-                </p>
                 <p><strong>{{ i.ye }}({{ i.count }})</strong></p>
                 {% for obj in i.blogs_list %}
                     <ul>

@@ -17,12 +17,8 @@ def home(request):
 def index(request):
     """博客列表首页"""
     blogs=Blog.objects.all()
-    categories=Category.objects.all()
-    hot_blogs=Blog.objects.order_by("-counts")[:15]
-    blog_tags=tagsCloud()
     return render_to_response('index.html',
-                              {'blogs':blogs,'categories':categories,'hot_blogs':hot_blogs,
-                               'blog_tags':blog_tags,'is_blog_view':False},
+                              {'blogs':blogs,'is_blog_view':False},
                               context_instance=RequestContext(request))
 
 def blog(request,pk):
@@ -78,12 +74,9 @@ def category(request,pk):
     except Category.DoesNotExist:  #如果分类不存在，则引起404错误
         raise Http404
     blogs=cate.blog_set.all()
-    categories=Category.objects.all()
-    hot_blogs=Blog.objects.order_by("-counts")[:15]
-    blog_tags=tagsCloud()
     return render_to_response('index.html',
-                              {'cate':cate,'categories':categories,'blogs':blogs,
-                               'hot_blogs':hot_blogs,'blog_tags':blog_tags,'is_blog_view':False,'is_category':True},
+                              {'cate':cate,'blogs':blogs,
+                               'is_blog_view':False,'is_category':True},
                               context_instance=RequestContext(request))
 # def search(request):
 #     """博客检索"""
@@ -107,12 +100,9 @@ def blog_tag(request,pk):
     tags=blog_tag.tag_set.all()
     for obj in tags:
         blogs.append(obj.blog)
-    categories=Category.objects.all()
-    hot_blogs=Blog.objects.order_by("-counts")[:15]
-    blog_tags=tagsCloud()
     return render_to_response('index.html',
-                              {'blog_tag':blog_tag,'categories':categories,'blogs':blogs,
-                               'hot_blogs':hot_blogs,'blog_tags':blog_tags,'is_blog_view':False,'is_blog_tag':True},
+                              {'blog_tag':blog_tag,'blogs':blogs,
+                              'is_blog_view':False,'is_blog_tag':True},
                               context_instance=RequestContext(request))
 
 def tagsCloud():
@@ -158,15 +148,9 @@ def pigeonhole(request):
         dict['counts']=counts
         blogs_info.append(dict) #为包含归档信息的字典列表
         #侧边栏信息
-        categories=Category.objects.all()
-        hot_blogs=Blog.objects.order_by("-counts")[:15]
-        blog_tags=tagsCloud()
     return render_to_response('index.html',
                               {'blogs_info':blogs_info,
                                'counts':counts,
-                               'categories':categories,
-                               'hot_blogs':hot_blogs,
-                               'blog_tags':blog_tags,
                                'is_blog_view':False,
                                'is_pigeonhole_view':True,
                               },
@@ -205,10 +189,6 @@ def login_(request):
     此views是登录的另一种方法
     上面那种也可以，只不过两种方法的login.html略有不一样
     """
-    #侧边栏信息
-    categories=Category.objects.all()
-    hot_blogs=Blog.objects.order_by("-counts")[:15]
-    blog_tags=tagsCloud()
     if request.method == 'POST':
         form = LoginForm(request.POST)
         if form.is_valid():
@@ -225,9 +205,7 @@ def login_(request):
         form = LoginForm()
 
     return render_to_response('login.html', {'form':form,
-                                             'categories':categories,
-                               'hot_blogs':hot_blogs,
-                               'blog_tags':blog_tags,},
+                                             },
                               context_instance=RequestContext(request))
 
 def logout_(request):

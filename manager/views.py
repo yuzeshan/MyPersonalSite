@@ -17,14 +17,8 @@ from django.views.decorators.csrf import csrf_exempt
 def addBlog(request):
     """添加博客"""
     context={}
-    categories=Category.objects.all().order_by('-id')  #以id逆序获得所有类型
-    hot_blogs=Blog.objects.order_by("-counts")[:15]
-    blog_tags=tagsCloud()
     tag_obj=Blog_tag.objects.all().order_by('-id')    #以id逆序获得所有标签
-    context['categories']=categories
     context['tags']=tag_obj
-    context['hot_blogs']=hot_blogs
-    context['blog_tags']=blog_tags
     if request.method=='POST':
         form=BlogForm(request.POST)
         if form.is_valid():
@@ -151,13 +145,9 @@ def uploadBlog(request):
     context={}
     errors=[]
     categories=Category.objects.all().order_by('-id')  #以id逆序获得所有类型
-    hot_blogs=Blog.objects.order_by("-counts")[:15]
-    blog_tags=tagsCloud()
     tag_obj=Blog_tag.objects.all().order_by('-id')    #以id逆序获得所有标签
     context['categories']=categories
     context['tags']=tag_obj
-    context['hot_blogs']=hot_blogs
-    context['blog_tags']=blog_tags
     if request.method=='POST':
         files=request.FILES.get('blog')#获取博客文件
         con=re.split('---',files.read().decode('utf-8'))
@@ -209,14 +199,8 @@ def uploadBlog(request):
 def changePwd(request):
     """修改账户密码"""
     context={}
-    categories=Category.objects.all().order_by('-id')  #以id逆序获得所有类型
-    hot_blogs=Blog.objects.order_by("-counts")[:15]
-    blog_tags=tagsCloud()
     tag_obj=Blog_tag.objects.all().order_by('-id')    #以id逆序获得所有标签
-    context['categories']=categories
     context['tags']=tag_obj
-    context['hot_blogs']=hot_blogs
-    context['blog_tags']=blog_tags
     context['form']=ChangePwdForm()
     if request.method=='POST':
         form=ChangePwdForm(request.POST)
