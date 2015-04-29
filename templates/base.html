@@ -8,6 +8,7 @@
         <meta name="description" content="">
         <meta name="author" content="">
         <title>Shanyuze的博客</title>
+        <link rel="shortcut icon" href="/static/img/favicon.ico">
         <!--Bootstrap core css-->
         <link rel="stylesheet" href="{{ STATIC_URL }}bootstrap/css/bootstrap.min.css"/>
         <!--Custom styles for this template-->
@@ -28,7 +29,7 @@
         <!--下面为页面加载介绍前的缓冲效果-->
         <script src="/static/js/loading.js"></script>
     </head>
-    <body>
+    <body id="page-top">
         {% if not is_blog_view %}  <!--假如不是显示博客页面，就显示主页-->
             {% include "head.html" %} <!--显示主页导航-->
         {% else %}
