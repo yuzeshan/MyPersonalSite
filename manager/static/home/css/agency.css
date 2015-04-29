@@ -343,15 +343,15 @@ section {
     font-family: Montserrat,"Helvetica Neue",Helvetica,Arial,sans-serif;
 }
 #responsive .double-portfolio a{
-    display: block;
-    width: 40px;
-    height: 40px;
+    display: inline-block;
+    width: 80px;
+    height: 80px;
     border-radius: 100%;
-    font-size: 20px;
-    line-height: 40px;
+    font-size: 40px;
+    line-height: 80px;
     outline: 0;
-    color: #FF7E00;
-    background-color: #696969;
+    color: rgb(66,139,202);
+    background-color: #000000;
     -webkit-transition: all .3s;
     -moz-transition: all .3s;
     transition: all .3s;
