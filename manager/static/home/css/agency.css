@@ -312,7 +312,7 @@ header .intro-text .intro-heading {
     header .intro-text {
         /*border: 1px solid red;*/
         padding-top: 20%;
-        padding-bottom: 15%;
+        padding-bottom: 18%;
     }
 
     header .intro-text .intro-lead-in {
@@ -345,7 +345,7 @@ section {
     font-family: Montserrat,"Helvetica Neue",Helvetica,Arial,sans-serif;
 }
 #responsive .double-portfolio{
-    margin-top: 2%;
+    margin-top: 6%;
 }
 #responsive .double-portfolio a{
     display: inline-block;
