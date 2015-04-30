@@ -376,6 +376,7 @@ section {
 #web-backend p{
     font-family: Montserrat,"Helvetica Neue",Helvetica,Arial,sans-serif;
     color: #fffacd;
+    font-size: 20px;
 }
 aside{
     background-color: rgb(52,73,94);
