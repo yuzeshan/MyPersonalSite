@@ -344,8 +344,8 @@ section {
 #responsive h1,#responsive p{
     font-family: Montserrat,"Helvetica Neue",Helvetica,Arial,sans-serif;
 }
-#responsive .double-portfolio{
-    margin-top: 8%;
+#responsive .row{
+    padding-top: 2%;
 }
 #responsive .double-portfolio a{
     display: inline-block;
