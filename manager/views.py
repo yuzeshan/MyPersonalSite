@@ -18,6 +18,8 @@ def addBlog(request):
     """添加博客"""
     context={}
     tag_obj=Blog_tag.objects.all().order_by('-id')    #以id逆序获得所有标签
+    categories=Category.objects.all()
+    context['categories']=categories
     context['tags']=tag_obj
     if request.method=='POST':
         form=BlogForm(request.POST)
