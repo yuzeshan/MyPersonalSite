@@ -36,6 +36,10 @@ urlpatterns += patterns('myblog.views',
     url(r"^wiki/(?P<pk>\d+)/$",'wiki_con',name='wiki'),#维基名章节内容，注意name要与url相同，而不一定要与view一致
 
 
+    url(r'^pic/$','pic'),#图片首页
+    url(r"^pic/(?P<pk>\d+)/$",'picView',name='pic'),
+
+
 )
 
 

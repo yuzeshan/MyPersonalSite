@@ -38,7 +38,7 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'manager',
-    'south',
+    # 'south',
     # 'ckeditor',#这是富文本编辑器
     'wmd',  #这是wmd markdown编辑器
     'linaro_django_pagination',#文章分页
@@ -95,6 +95,14 @@ TEMPLATE_CONTEXT_PROCESSORS=('django.contrib.auth.context_processors.auth',
 # 		),
 # 	}
 # }
+
+
+# 七牛云存储
+QINIU_ACCESS_KEY = '8rwZCBDsH4ASqUlwTxxqUX3SJzWaIHpzzIxvfxDw'
+QINIU_SECRET_KEY = '9WZVTtz8aGXgQtyJJdGvW59cPB34URPIedQ3SrGg'
+QINIU_BUCKET_NAME = 'shanyuze'
+QINIU_DOMAIN = '7tea3c.com1.z0.glb.clouddn.com'  # 域名
+
 
 
 #--------wmd markdown编辑器配置------

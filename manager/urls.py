@@ -16,4 +16,7 @@ urlpatterns = patterns('manager.views',
     url(r'^addWikiName/$','addWikiName',name='addWikiName'),#添加wiki名称
     url(r'^delWikiChapter/$','delWikiChapter',name='delWikiChapter'),#删除wiki教程的章节内容
 
+    url(r'^pic/create_type/$','createPicType',name='createPicType'),  #创建图片相册，即图片类型
+    url(r'^pic/upload/$', 'UploadPicType', name='UploadPicType'),  #上传图片相册封面图
+
 )

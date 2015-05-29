@@ -102,6 +102,41 @@ class Wiki(models.Model):
         return ('wiki',(),{'pk':self.pk})
 
 
+#-----图片管理models------
+class PicType(models.Model):
+    """图片类型，包括类型封面图"""
+    title=models.CharField(max_length=100)
+    desc=models.CharField(max_length=500,null=True) #图片类型描述
+    img=models.CharField(max_length=200) #图片类型封面
+    is_show=models.CharField(max_length=100,null=True)#加密
+    add_date=models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering=["-id"]
+
+    def __unicode__(self):
+        return self.title
+
+    @models.permalink
+    def get_absolute_url(self):
+        return ('pic',(),{'pk':self.pk})
+
+class Pic(models.Model):
+    """图片具体信息"""
+    type=models.ForeignKey(PicType) #图片类型外键
+    img=models.CharField(max_length=200) #图片
+    desc=models.CharField(max_length=500,null=True)#图片
+    add_date=models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering=["-id"]
+
+
+
+
+
+
+
 
 
 

@@ -292,3 +292,15 @@ def wiki_con(request,pk):
                               context_instance=RequestContext(request))
 
 
+
+def pic(request):
+    """图片首页内容"""
+    pics=PicType.objects.all()
+    return render_to_response('picture/index.html',{'pics':pics},
+                              context_instance=RequestContext(request))
+
+def picView(request,id):
+    return
+
+
+

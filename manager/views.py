@@ -1,7 +1,8 @@
 #-*- coding:utf-8 -*-
 from django.shortcuts import render_to_response,HttpResponseRedirect,HttpResponse
 from django.template import RequestContext
-from common.form import BlogForm,ChangePwdForm,WikiForm
+from common.form import BlogForm,ChangePwdForm,WikiForm,PicTypeForm
+from common.Qiniu import Qiniu
 from models import *
 from BeautifulSoup import BeautifulSoup
 import random
@@ -312,6 +313,47 @@ def delWikiChapter(request):
         Wiki.objects.get(id=id).delete() #将指定id的wiki章节内容删除
         data['id']=id
         return HttpResponse(json.dumps(data))
+
+
+@csrf_exempt
+def UploadPicType(request):
+    """上传图片封面图
+       将其上传到七牛云上面，并返回url
+    """
+    if request.method == 'POST':
+        img = request.FILES.get('Filedata', None)
+        type = request.POST.get('type', None)
+        if type:
+            qn = Qiniu(img, w=800, h=520)
+        else:
+            qn = Qiniu(img)
+        qn.uploadFile()
+        remote_url = qn.downloadFile()
+        key = qn.getKey()
+        return HttpResponse(json.dumps({'url':remote_url, 'key':key}))
+
+
+def createPicType(request):
+    """创建图片相册，即图片类型"""
+    context={}
+    if request.method=='POST':
+        img=request.POST.get('img',None)
+        form = PicTypeForm(request.POST)
+        if form.is_valid():
+            form_data=form.cleaned_data
+            title=form_data.get('title')#获取图片相册标题
+            desc=form_data.get('desc',None)#获取图片相册描述
+            is_show=form_data.get('is_show',None)#获取图片相册加密密码
+            PicType.objects.create(title=title,desc=desc,img=img,is_show=is_show)
+            return HttpResponseRedirect('/pic/')
+        context['form'] = form
+    else:
+        form = PicTypeForm()
+        context['form']=form
+    return render_to_response('picture/addtype.html',context,
+                              context_instance=RequestContext(request))
+
+
 
 
 

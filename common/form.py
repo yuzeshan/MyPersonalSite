@@ -141,3 +141,15 @@ class ChangePwdForm(forms.Form):
                 raise forms.ValidationError(u'密码输入错误，请重新输入!!!')
         return self.cleaned_data
 
+class PicTypeForm(forms.Form):
+    """图片相册，即图片类型表单类"""
+    title = forms.CharField(max_length=100, label=u'title', widget=forms.TextInput(
+        attrs={'class': 'form-control', 'placeholder': u'title', 'required': ''})
+    )
+    desc = forms.CharField(label=u'wiki',widget=forms.Textarea(
+        attrs={'class': 'form-control', 'placeholder': u'describe'})
+    )
+    is_show=forms.CharField(label=u'加密',max_length=100,required=False,
+                            widget=forms.TextInput(
+                                attrs={'class':'form-control','placeholder':u'密码'}
+                            ))

@@ -1,0 +1,77 @@
+{% extends "wiki/wiki_base.html" %}
+
+{% block css %}
+    <link href="/static/uploadify/uploadify.css/" rel="stylesheet">
+{% endblock %}
+{% block content %}
+    <div class="col-md-5 text-center" style="padding: 20px 0 20px 0">
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <img src="{{ img_obj.img|default:'/static/img/platform.png' }}" alt="" id="img_prew" width="180" height="180"/>
+                <p  style="margin-left: 40%;margin-top: 10px;"><input id="file_upload" name="file_upload" type="file"></p>
+                <!--点击上传，才开始上传-->
+                <a href="javascript:$('#file_upload').uploadify('upload','*')" class="label label-info text-right">上传</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-5 text-center" style="padding: 20px 0 20px 0">
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <form class="form-signin2" role="form" id="Pictypeform" action="/manage/pic/create_type/" method="post">
+                    {% csrf_token %}
+                    <h2 class="form-signin-heading">添加图片分类</h2>
+                    <p>{{ form.title }}</p>
+                    <p>{{ form.is_show }}</p>
+                    <p>{{ form.desc }}</p>
+                    <input type="hidden" value="0" id="img_url" name="img"/> <!--上传的image的url-->
+                    <a class="btn btn-lg btn-primary btn-block" href="javascript:;" id="save">保存</a>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+
+{% endblock %}
+{% block js %}
+    <script src="/static/uploadify/jquery.uploadify.min.js"></script>
+
+    <script>
+    //uploadify配置
+   $(function() {
+       // 图片上传预览
+        $('#file_upload').uploadify({
+            'auto'     : false,
+            'buttonText' : '选择封面图',
+            'fileSizeLimit' : '1MB',
+            'fileTypeExts' : '*.gif; *.jpg; *.png',
+            'method'   : 'post',
+            'multi'    : false,     // 一次只能选择一个文件
+            'uploadLimit' : 1,      //定义允许的最大上传数量。当达到或者超过该数值时，将触发 onUploadError事件。
+            'swf'      : '/static/uploadify/uploadify.swf',    //指定上传控件的主体文件
+            'uploader' : '/manage/pic/upload/',                      //指定服务器端上传处理路径
+            'onUploadError' : function(file, errorCode, errorMsg, errorString) { // 上传失败
+                alert(file.name + ' 上传失败。详细信息: ' + errorString);
+            },
+            'onUploadSuccess' : function(file, data, response) {    // 上传成功
+                var r = JSON.parse(data);
+                var purl = r.url;   // 图片路径
+                $('#img_prew').attr('src', purl);
+                $('#img_url').val(purl);
+
+            },
+            'onCancel' : function(file) {       // 取消
+                alert('The file ' + file.name + ' was cancelled.');
+            }
+        });
+       submitForm();        // save
+    });
+    // 提交表单
+    function submitForm(){
+        $('#save').click(function(){
+            var img_url = $('#img_url').val();
+            img_url == 0 ? alert('请上传分类的封面'):$('#Pictypeform').submit();
+        })
+    }
+    </script>
+{% endblock %}
