@@ -293,7 +293,7 @@ def wiki_con(request,pk):
 
 
 
-def pic(request):
+def picIndex(request):
     """图片首页内容"""
     pics=PicType.objects.all()
     return render_to_response('picture/index.html',{'pics':pics},
