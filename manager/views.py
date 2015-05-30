@@ -353,6 +353,22 @@ def createPicType(request):
     return render_to_response('picture/addtype.html',context,
                               context_instance=RequestContext(request))
 
+def uploadPic(request,pk):
+    """上传图片相册具体的图片"""
+    context={}
+    pictype=PicType.objects.get(pk=pk)#获取图片相册类型
+    context['pictype'] = pictype
+    if request.method == 'POST':    #前台通过ajax来将填写的数据传到后台
+        data = request.POST.get('data')
+        data = json.loads(data)
+        for obj in data:
+            Pic.objects.create(type=pictype, img=obj['url'], desc=obj['desc'])
+        return HttpResponse('ok')
+
+    return render_to_response('picture/addpic.html', context,
+                              context_instance=RequestContext(request))
+
+
 
 
 

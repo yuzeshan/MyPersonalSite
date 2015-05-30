@@ -299,8 +299,15 @@ def picIndex(request):
     return render_to_response('picture/index.html',{'pics':pics},
                               context_instance=RequestContext(request))
 
-def picView(request,id):
-    return
+def picView(request,pk):
+    """图片相册里的具体图片展示"""
+    context={}
+    pictype=PicType.objects.get(pk=pk)#获取图片相册类型对象
+    pics=pictype.pic_set.all() #获取该类型下的所有图片
+    context['pics']=pics
+    context['pictype']=pictype
+    return render_to_response('picture/pic.html',context,
+                              context_instance=RequestContext(request))
 
 
 

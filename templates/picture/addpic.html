@@ -1,0 +1,86 @@
+{% extends 'wiki/wiki_base.html' %}
+{% block css %}
+    <link href="/static/uploadify/uploadify.css/" rel="stylesheet">
+    <style>
+        #uploadPic_index{
+            width: 60%;
+            margin: 0 auto;
+            margin-top: 15px;
+            border-radius: 4px;
+
+        }
+    </style>
+{% endblock %}
+{% block content %}
+    <div id="uploadPic_index">
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <p class="alert alert-info">图片相册：<b>{{ pictype.title }}</b></p>
+                <div class="picbox"></div>
+                <p>
+                    <input id="file_upload" name="file_upload" type="file">
+                    <a href="javascript:$('#file_upload').uploadify('upload','*')" class="label label-info">上传</a>
+                </p>
+                <p>
+                    <a class="btn btn-warning" href="javascript:;" onclick="MyPicSave()" style="width: 100%">保 存</a>
+                </p>
+
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+{% block js %}
+    <script src="/static/uploadify/jquery.uploadify.min.js"></script>
+
+    <script>
+   $(function() {
+       // 图片上传预览
+        $('#file_upload').uploadify({
+            'auto'     : false,
+            'buttonText' : '选择图片',
+            'fileSizeLimit' : '1MB',
+            'fileTypeExts' : '*.gif; *.jpg; *.png',
+            'method'   : 'post',
+            'formData'      : {'type': 1},      // post的额外数据
+            'swf'      : '/static/uploadify/uploadify.swf',    //指定上传控件的主体文件
+            'uploader' : '/manage/pic/upload/',                      //指定服务器端上传处理路径
+            'onUploadError' : function(file, errorCode, errorMsg, errorString) { // 上传失败
+                alert(file.name + ' 上传失败。详细信息: ' + errorString);
+            },
+            'onUploadSuccess' : function(file, data, response) {    // 上传成功
+                var r = JSON.parse(data);
+                var purl = r.url;   // 图片路径
+                var str = "<div class='hr_small pic'>\
+                        <p><img src='"+purl+"' class='remote_pic' width='800'></p>\
+                        <textarea class='form-control desc' rows='3'></textarea><hr>\
+                        </div>";
+
+                $('.picbox').append(str);
+            },
+            'onCancel' : function(file) {       // 取消
+                alert('The file ' + file.name + ' was cancelled.');
+            }
+        });
+    });
+
+    // save
+    function MyPicSave(){
+        var datas = [];
+        if($('.hr_small.pic').length >= 1){
+            $('.picbox').find('.hr_small.pic').each(function(){
+                var img_url = $(this).find('img.remote_pic').attr('src');
+                var desc = $(this).find('textarea').val();
+                datas.push({'url':img_url, 'desc':desc});
+            });
+            datas = JSON.stringify(datas);
+            var url = '{{ request.path }}';
+            $.post(url, {'data':datas}, function(data){
+                if(data == 'ok'){
+                    location.href='/pic/{{ pictype.id }}/';
+                }
+            })
+        }
+    }
+    </script>
+{% endblock %}

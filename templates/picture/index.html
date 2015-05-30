@@ -9,7 +9,7 @@
             background-color: #999;
             background-size: cover;
         }
-        #obj_index{
+        #img_index{
             width: 80%;
             margin: 0 auto;
             margin-top: 15px;
@@ -19,11 +19,11 @@
     </style>
 {% endblock %}
 {% block content %}
-    <div id="obj_index">
+    <div id="img_index">
         <div class="panel panel-default">
             <div class="panel-body">
                 <p class="alert alert-info">
-                    My objture.
+                    My picture.
                     {% if user.is_authenticated %}
                         <a href="/manage/pic/create_type/" class="btn btn-warning">
                             <span class="glyphicon glyphicon-plus"></span>添加图片册
@@ -41,7 +41,7 @@
                                             {% if obj.is_show %}
                                                 <img class="img-responsive" src="/static/img/pic_lock.jpg" width="200px" height="200px">
                                             {% else %}
-                                                <img class="img-responsive" src="{{ obj.img }}" alt="{{ obj.title }}" width="300px" height="200px">
+                                                <img class="img-responsive" src="{{ obj.img }}" alt="{{ obj.title }}" width="200px" height="150px">
                                             {% endif %}
                                          </a>
                                         <div class="caption">

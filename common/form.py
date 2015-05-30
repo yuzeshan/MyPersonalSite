@@ -150,6 +150,6 @@ class PicTypeForm(forms.Form):
         attrs={'class': 'form-control', 'placeholder': u'describe'})
     )
     is_show=forms.CharField(label=u'加密',max_length=100,required=False,
-                            widget=forms.TextInput(
+                            widget=forms.PasswordInput(
                                 attrs={'class':'form-control','placeholder':u'密码'}
                             ))

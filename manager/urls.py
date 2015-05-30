@@ -18,5 +18,6 @@ urlpatterns = patterns('manager.views',
 
     url(r'^pic/create_type/$','createPicType',name='createPicType'),  #创建图片相册，即图片类型
     url(r'^pic/upload/$', 'UploadPicType', name='UploadPicType'),  #上传图片相册封面图
+    url(r'^pic/uploadPic/(?P<pk>\d+)/$','uploadPic',name='uploadPic'),
 
 )

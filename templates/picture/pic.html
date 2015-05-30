@@ -1,0 +1,74 @@
+{% extends "wiki/wiki_base.html" %}
+{% block css %}
+    <style>
+        body {
+            background:url(/static/img/star.jpg);
+            background-position: 0 0; /* 元素的左上角 */
+            background-repeat: no-repeat; /* 不平铺。图片只展示一次。 */
+            background-attachment: fixed;
+            background-color: #999;
+            background-size: cover;
+        }
+        #img_content{
+            width: 80%;
+            margin: 0 auto;
+            margin-top: 15px;
+            border-radius: 4px;
+
+        }
+    </style>
+{% endblock %}
+{% block content %}
+    <div id="img_content">
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <div class="media">
+                    <div class="media-left media-middle">
+                        <a href="/pic/">
+                            <img class="img-circle img-responsive" width="200" height="150" src="{{ pictype.img }}" alt="{{ pictype.title }}">
+                        </a>
+                    </div>
+                    <div class="media-body">
+                        <h2 class="media-heading">{{ pictype.title }}<span class="badge">{{ pics|length }}张</span></h2>
+                        {% if user.is_authenticated %}
+                            <a href="/manage/pic/uploadPic/{{ pictype.id }}/" class="btn btn-success btn-lg">
+                                <span class="glyphicon glyphicon-picture"></span>上传图片
+                            </a>
+                        {% endif %}
+                    </div>
+                </div>
+                <div id="container">
+                    {% for obj in pics %}
+                        <img class="lazy img-responsive" data-original="{{ obj.getPic.img }}" width="800" height="574" alt=""><br/>
+                        <div class="text-muted">
+                            <p class="picdesc">更新于：<span class="text-info">{{ obj.add_date|date:"Y/m/d H:i" }}</span>&nbsp;&nbsp;&nbsp;-- {{ obj.desc }}</p>&nbsp;&nbsp;
+                        </div>
+                        <hr/>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+{% block js %}
+    <script src="/static/jquery-lazyload/jquery.lazyload.js"></script>
+    <script>
+     $(function() {
+         $("img.lazy").lazyload({
+             effect : "fadeIn"
+         });
+         // 图片处理
+         $('#container').find('img').each(function(){
+             $(this).addClass('img-thumbnail');
+              var img_w = $(this).width();//图片宽度
+               var img_h = $(this).height();//图片高度
+               if(img_w>800){//如果图片宽度超出容器宽度--要撑破了
+                    var height = (img_w*img_h)/img_w; //高度等比缩放
+                    $(this).css({"width":img_w,"height":height});//设置缩放后的宽度和高度
+                }
+             //$(this).css('width', '800px');
+         })
+  });
+    </script>
+{% endblock %}
