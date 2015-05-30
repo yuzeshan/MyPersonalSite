@@ -29,7 +29,7 @@
                         </a>
                     </div>
                     <div class="media-body">
-                        <h2 class="media-heading">{{ pictype.title }}<span class="badge">{{ pics|length }}张</span></h2>
+                        <h2 class="media-heading">图片相册名:{{ pictype.title }}<span class="badge">{{ pics|length }}张</span></h2>
                         {% if user.is_authenticated %}
                             <a href="/manage/pic/uploadPic/{{ pictype.id }}/" class="btn btn-success btn-lg">
                                 <span class="glyphicon glyphicon-picture"></span>上传图片
@@ -39,7 +39,7 @@
                 </div>
                 <div id="container">
                     {% for obj in pics %}
-                        <img class="lazy img-responsive" data-original="{{ obj.getPic.img }}" width="800" height="574" alt=""><br/>
+                        <img class="lazy img-responsive" data-original="{{ obj.img }}" width="800" height="574" alt=""><br/>
                         <div class="text-muted">
                             <p class="picdesc">更新于：<span class="text-info">{{ obj.add_date|date:"Y/m/d H:i" }}</span>&nbsp;&nbsp;&nbsp;-- {{ obj.desc }}</p>&nbsp;&nbsp;
                         </div>

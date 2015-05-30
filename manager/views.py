@@ -352,7 +352,7 @@ def createPicType(request):
         context['form']=form
     return render_to_response('picture/addtype.html',context,
                               context_instance=RequestContext(request))
-
+@csrf_exempt
 def uploadPic(request,pk):
     """上传图片相册具体的图片"""
     context={}
