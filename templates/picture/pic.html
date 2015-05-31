@@ -42,14 +42,21 @@
                 <div id="container" style="text-align: center;">
                     {% autopaginate pics 3 %}
                     {% for obj in pics %}
-                        <p style="text-align: center;">
+                        <div id="pic_{{ obj.id }}">
+                            <p style="text-align: center;">
                             <img class="lazy img-responsive" data-original="{{ obj.img }}" width="800" height="574" alt="">
-                        </p>
-                        <br/>
-                        <div class="text-muted">
-                            <p class="picdesc">更新于：<span class="text-info">{{ obj.add_date|date:"Y/m/d H:i" }}</span>&nbsp;&nbsp;&nbsp;-- {{ obj.desc }}</p>&nbsp;&nbsp;
+                            </p>
+                            <br/>
+                            <div class="text-muted">
+                                <p class="picdesc">更新于：<span class="text-info">{{ obj.add_date|date:"Y/m/d H:i" }}</span>&nbsp;&nbsp;&nbsp;-- {{ obj.desc }}</p>&nbsp;&nbsp;
+                            </div>
+                            {% if user.is_authenticated %}
+                            <a href="javascript:;" class="pic_del" type="{{ obj.id }}"><span class="glyphicon glyphicon-remove"></span></a>
+                            &nbsp;&nbsp;<a href="javascript:;"><span class="glyphicon glyphicon-edit"></span></a>
+                            {% endif %}
+                            <hr/>
                         </div>
-                        <hr/>
+
                     {% endfor %}
                     {% paginate %}
                 </div>

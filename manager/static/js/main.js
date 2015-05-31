@@ -10,6 +10,7 @@ $(function ($) {
     uploadBlog_Init();
     navigator_switch();
     addWiki_Init();
+    picDel();
 
 })//html文档加载后，运行这些代码
 
@@ -333,6 +334,41 @@ $('.wiki_row').mouseout(function(){
 
 /*-------------上面是处理wiki的js代码-----end-----*/
 
+/*-----------下面是处理picture的js代码-----start----*/
+//删除pictype和pic共用的函数
+function picDel() {
+    $('.pictype_del').click(function(){
+        confirm('是否删除') ? picPost('pictype', $(this).attr('type')):null
+    });//调用ajax删除图片相册
+    $('.pic_del').click(function(){
+        confirm('是否删除') ? picPost('pic', $(this).attr('type')):null
+    });//调用ajax删除图片
+    function picPost(model,id) {
+        var url = '/manage/pic/delPic/';
+        var jqxhr=$.post(url, {'model':model,'id':id}, function(data){
+           if(data){
+                var r=JSON.parse(data);
+                if (r.model=='pictype'){
+                    $('#pictype_'+r.id).hide();//仅仅隐藏，再次刷新时就会更新；而直接删除则会把其他也删除了
+                }
+                if (r.model=='pic'){
+                    $('#pic_'+r.id).hide();//仅仅隐藏，再次刷新时就会更新；而直接删除则会把其他也删除了
+                }
+
+
+            }else{
+                alert('系统出错');
+            }
+        });
+        jqxhr.error(function() {
+            alert("发生错误了，错误代码是:"+jqxhr.status);
+
+        });
+
+    }
+}
+/*-----------上面是处理picture的js代码-----end----*/
+
 
 /*下面是点击导航栏的焦点迁移*/
 function navigator_switch(){
@@ -351,6 +387,7 @@ function navigator_switch(){
     if(path.indexOf('pic') > -1){
         $('.navgator li').removeClass();
         $('#pic').addClass('active');
+        $('title').text('Shanyuze的Picture');
     }
     if(path.indexOf('about') > -1){
         $('.navgator li').removeClass();

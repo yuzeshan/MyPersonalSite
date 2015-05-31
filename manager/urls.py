@@ -18,6 +18,7 @@ urlpatterns = patterns('manager.views',
 
     url(r'^pic/create_type/$','createPicType',name='createPicType'),  #创建图片相册，即图片类型
     url(r'^pic/upload/$', 'UploadPicType', name='UploadPicType'),  #上传图片相册封面图
-    url(r'^pic/uploadPic/(?P<pk>\d+)/$','uploadPic',name='uploadPic'),
+    url(r'^pic/uploadPic/(?P<pk>\d+)/$','uploadPic',name='uploadPic'),#上传相册内的图片
+    url(r'pic/delPic/$','delPic',name='delPic'),#删除图片相册或单个图片
 
 )

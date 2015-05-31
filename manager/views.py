@@ -336,6 +336,7 @@ def UploadPicType(request):
 def createPicType(request):
     """创建图片相册，即图片类型"""
     context={}
+
     if request.method=='POST':
         img=request.POST.get('img',None)
         form = PicTypeForm(request.POST)
@@ -344,12 +345,23 @@ def createPicType(request):
             title=form_data.get('title')#获取图片相册标题
             desc=form_data.get('desc',None)#获取图片相册描述
             is_show=form_data.get('is_show',None)#获取图片相册加密密码
-            PicType.objects.create(title=title,desc=desc,img=img,is_show=is_show)
+            edit=int(request.POST.get('edit',None))
+            if edit:
+                PicType.objects.filter(pk=edit).update(title=title,desc=desc,img=img,is_show=is_show)
+            else:
+                PicType.objects.create(title=title,desc=desc,img=img,is_show=is_show)
             return HttpResponseRedirect('/pic/')
         context['form'] = form
     else:
-        form = PicTypeForm()
-        context['form']=form
+        id=int(request.GET.get('id',None))
+        edit=0 #初始化编辑值，若为0，则不是编辑状态
+        if id:
+            edit=id
+            pictype=PicType.objects.get(pk=id)
+            form = PicTypeForm({'title':pictype.title,'desc':pictype.desc,'is_show':pictype.is_show})
+            context['form']=form
+            context['pictype']=pictype
+        context['edit']=edit
     return render_to_response('picture/addtype.html',context,
                               context_instance=RequestContext(request))
 @csrf_exempt
@@ -367,6 +379,42 @@ def uploadPic(request,pk):
 
     return render_to_response('picture/addpic.html', context,
                               context_instance=RequestContext(request))
+@csrf_exempt
+def delPic(request):
+    """ajax删除图片相册或单个图片
+       同时将远端的七牛云上的图片也删除
+    """
+
+    #这里有个问题，之前设计model的时候没想到
+    #删除远端图片的时候需要key，但是model里面没有存，所以下面使通过截取图片url中的key来实现删除的
+
+    if request.method=='POST':
+        str_model=request.POST.get('model',None)#获取要删除的类型字符串，例如，如果是pictype，就是要删除相册
+        id=request.POST.get('id',None)#获取模型的id值
+        if str_model=='pictype':  #删除图片相册，并且将相册中的相片全部删除，包括远端七牛云上
+            pictype=PicType.objects.get(pk=id)
+            qn = Qiniu(pictype.img[38:]) #将远端的图片删除，参数是img链接的key，这里是从字符串38开始，就不计算了
+            qn.delFile()
+            pics=Pic.objects.filter(type=pictype)#获取图片相册对应的所有图片
+            keys=[]   #取得所有图片的key
+            for pic in pics:
+                keys.append(pic.img[38:])
+            qn = Qiniu(keys)
+            qn.delMoreFiles() #删除远端多个图片
+            #这两个放到最后再删除，原因是先把pictype删除后，后面就取不到pictype实例，进而取不到pic实例
+            pics.delete()  #将图片相册对应的图片也删除
+            pictype.delete()#将图片相册删除
+            return HttpResponse(json.dumps({'id':id,'model':'pictype'}))
+        elif str_model=='pic':
+            pic=Pic.objects.get(pk=id)
+            qn = Qiniu(pic.img[38:]) #将远端的图片删除，参数是img链接的key，这里是从字符串38开始，就不计算了
+            qn.delFile()
+            pic.delete()
+            return HttpResponse(json.dumps({'id':id,'model':'pic'}))
+
+
+
+
 
 
 

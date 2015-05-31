@@ -7,7 +7,7 @@
     <div class="col-md-5 text-center" style="padding: 20px 0 20px 0">
         <div class="panel panel-default">
             <div class="panel-body">
-                <img src="{{ img_obj.img|default:'/static/img/platform.png' }}" alt="" id="img_prew" width="180" height="180"/>
+                <img src="{{ pictype.img|default:'/static/img/platform.png' }}" alt="" id="img_prew" width="180" height="180"/>
                 <p  style="margin-left: 40%;margin-top: 10px;"><input id="file_upload" name="file_upload" type="file"></p>
                 <!--点击上传，才开始上传-->
                 <a href="javascript:$('#file_upload').uploadify('upload','*')" class="label label-info text-right">上传</a>
@@ -23,7 +23,8 @@
                     <p>{{ form.title }}</p>
                     <p>{{ form.is_show }}</p>
                     <p>{{ form.desc }}</p>
-                    <input type="hidden" value="0" id="img_url" name="img"/> <!--上传的image的url-->
+                    <input type="hidden" value="{{ pictype.img|default:0 }}" id="img_url" name="img"/> <!--上传的image的url-->
+                    <input type="hidden" value="{{ edit|default:0 }}" name="edit"/>
                     <a class="btn btn-lg btn-primary btn-block" href="javascript:;" id="save">保存</a>
                 </form>
             </div>
