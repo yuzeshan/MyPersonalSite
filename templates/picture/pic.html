@@ -18,18 +18,19 @@
         }
     </style>
 {% endblock %}
+{% load pagination_tags %}
 {% block content %}
     <div id="img_content">
         <div class="panel panel-default">
             <div class="panel-body">
-                <div class="media">
+                <div class="media" style="background-color: #f5e79e;">
                     <div class="media-left media-middle">
                         <a href="/pic/">
                             <img class="img-circle img-responsive" width="200" height="150" src="{{ pictype.img }}" alt="{{ pictype.title }}">
                         </a>
                     </div>
-                    <div class="media-body">
-                        <h2 class="media-heading">图片相册名:{{ pictype.title }}<span class="badge">{{ pics|length }}张</span></h2>
+                    <div class="media-body" >
+                        <h2 class="media-heading" style="margin-top: 20px;">相册名:<code>{{ pictype.title }}</code><span class="badge">{{ pics|length }}张</span></h2>
                         {% if user.is_authenticated %}
                             <a href="/manage/pic/uploadPic/{{ pictype.id }}/" class="btn btn-success btn-lg">
                                 <span class="glyphicon glyphicon-picture"></span>上传图片
@@ -37,14 +38,20 @@
                         {% endif %}
                     </div>
                 </div>
-                <div id="container">
+                <hr/>
+                <div id="container" style="text-align: center;">
+                    {% autopaginate pics 3 %}
                     {% for obj in pics %}
-                        <img class="lazy img-responsive" data-original="{{ obj.img }}" width="800" height="574" alt=""><br/>
+                        <p style="text-align: center;">
+                            <img class="lazy img-responsive" data-original="{{ obj.img }}" width="800" height="574" alt="">
+                        </p>
+                        <br/>
                         <div class="text-muted">
                             <p class="picdesc">更新于：<span class="text-info">{{ obj.add_date|date:"Y/m/d H:i" }}</span>&nbsp;&nbsp;&nbsp;-- {{ obj.desc }}</p>&nbsp;&nbsp;
                         </div>
                         <hr/>
                     {% endfor %}
+                    {% paginate %}
                 </div>
             </div>
         </div>

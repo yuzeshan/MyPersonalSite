@@ -348,6 +348,14 @@ function navigator_switch(){
         $('.navgator li').removeClass();
         $('#wiki').addClass('active');
     }
+    if(path.indexOf('pic') > -1){
+        $('.navgator li').removeClass();
+        $('#pic').addClass('active');
+    }
+    if(path.indexOf('about') > -1){
+        $('.navgator li').removeClass();
+        $('#about').addClass('active');
+    }
 }
 
 /*下面是浮动小人的js代码*/

@@ -24,7 +24,7 @@ urlpatterns += patterns('myblog.views',
     url(r"^blog/(?P<pk>\d+)/$",'blog',name='blog'),#博客具体内容页面
     url(r"^category/(?P<pk>\d+)/$",'category',name='category'),#博客分类
     url(r"^blog_tag/(?P<pk>\d+)/$",'blog_tag',name='blog_tag'),#博客标签
-    url(r'^ciphertext/(?P<pk>\d+)/$','ciphertext',name='ciphertext'),
+    url(r'^blog_ciphertext/(?P<pk>\d+)/$','blog_ciphertext',name='blog_ciphertext'),
     url(r"^pigeonhole/$",'pigeonhole',name='pigeonhole'),#博客归档
     url(r"^login/$",'login_',name='login'),#登录
     url(r"^logout/$",'logout_',name='logout'),#登出
@@ -38,6 +38,7 @@ urlpatterns += patterns('myblog.views',
 
     url(r'^pic/$','picIndex'),#图片首页
     url(r"^pic/(?P<pk>\d+)/$",'picView',name='pic'),#图片相册内容
+    url(r'^pic_ciphertext/(?P<pk>\d+)/$','pic_ciphertext',name='pic_ciphertext'),#图片加密重定向
 
 
 )

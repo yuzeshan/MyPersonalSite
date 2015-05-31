@@ -25,7 +25,7 @@ def blog(request,pk):
     """博客详细页面"""
     blog=Blog.objects.get(pk=pk)#获取一个博客对象(相当于Blog类的对象)
     if blog.is_show:
-        return HttpResponseRedirect('/ciphertext/%s/'%pk)
+        return HttpResponseRedirect('/blog_ciphertext/%s/'%pk)
     categories=Category.objects.all()
     blog.counts+=1
     blog.save()   #这是必须的，否则数据库参数不变化
@@ -44,7 +44,7 @@ def get_neighbor(obj,id):#这里添加了obj，使其通用化，传过来的是
     #获取数据库中博客id列表
     #比如：[1l,2l,5l,6l]
     id=int(id) #因为传过来的id为字符串
-    blogs_id=obj.objects.values_list('id',flat=True).order_by('id')
+    blogs_id=obj.objects.values_list('id',flat=True).order_by('-id')
     blogs_id=list(blogs_id)
     dic={}
     if blogs_id:
@@ -214,7 +214,7 @@ def logout_(request):
     return HttpResponseRedirect('/index/')
 
 
-def ciphertext(request,pk=None):
+def blog_ciphertext(request,pk=None):
     """密文重定向处理"""
     blog=Blog.objects.get(pk=pk)
     pwd=blog.is_show   #博文的密码
@@ -224,7 +224,7 @@ def ciphertext(request,pk=None):
            categories=Category.objects.all()
            blog.counts+=1
            blog.save()   #这是必须的，否则数据库参数不变化
-           pg=get_neighbor(pk)  #获取上下篇博客的id
+           pg=get_neighbor(Blog,pk)  #获取上下篇博客的id
            return render_to_response('blog.html',
                                   {'blog':blog,'categories':categories,'pg':pg,
                                    'is_blog_view':True},
@@ -303,11 +303,32 @@ def picView(request,pk):
     """图片相册里的具体图片展示"""
     context={}
     pictype=PicType.objects.get(pk=pk)#获取图片相册类型对象
+    if pictype.is_show:
+        return HttpResponseRedirect('/pic_ciphertext/%s/'%pk)
     pics=pictype.pic_set.all() #获取该类型下的所有图片
     context['pics']=pics
     context['pictype']=pictype
     return render_to_response('picture/pic.html',context,
                               context_instance=RequestContext(request))
+
+def pic_ciphertext(request,pk=None):
+    """相册加密重定向处理"""
+    context={}
+    pictype=PicType.objects.get(pk=pk)
+    pwd=pictype.is_show   #图片的的密码
+    if request.method=='POST':
+       pwd_form=request.POST.get('pwd',None)
+       if pwd==pwd_form:
+           pics=pictype.pic_set.all()
+           context['pics']=pics
+           context['pictype']=pictype
+           return render_to_response('picture/pic.html',context,
+                              context_instance=RequestContext(request))
+
+
+    else:
+        return render_to_response('ciphertext.html',
+                                  context_instance=RequestContext(request))
 
 
 
