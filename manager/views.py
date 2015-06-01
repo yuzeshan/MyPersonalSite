@@ -353,8 +353,9 @@ def createPicType(request):
             return HttpResponseRedirect('/pic/')
         context['form'] = form
     else:
-        id=int(request.GET.get('id',None))
+        id=int(request.GET.get('id',0))
         edit=0 #初始化编辑值，若为0，则不是编辑状态
+        context['form']=PicTypeForm()
         if id:
             edit=id
             pictype=PicType.objects.get(pk=id)
@@ -411,6 +412,14 @@ def delPic(request):
             qn.delFile()
             pic.delete()
             return HttpResponse(json.dumps({'id':id,'model':'pic'}))
+@csrf_exempt
+def editSave(request):
+    """前端编辑图片描述内容。通过ajax保存"""
+    if request.method=='POST':
+        desc=request.POST.get('desc')
+        id=request.POST.get('id')
+        pic=Pic.objects.filter(pk=id).update(desc=desc)
+        return HttpResponse(json.dumps({'desc':desc}))
 
 
 

@@ -48,11 +48,16 @@
                             </p>
                             <br/>
                             <div class="text-muted">
-                                <p class="picdesc">更新于：<span class="text-info">{{ obj.add_date|date:"Y/m/d H:i" }}</span>&nbsp;&nbsp;&nbsp;-- {{ obj.desc }}</p>&nbsp;&nbsp;
+                                <div class="picdesc">
+                                    <p class="picdesc_con">{{ obj.desc }}</p>
+                                    <p class="text-info" style="margin-top: 10px;">更新于:{{ obj.add_date|date:"Y/m/d H:i" }}</p>
+                                </div>
                             </div>
+
                             {% if user.is_authenticated %}
+                            <textarea name="" id="" cols="100" rows="3" style="display: none;"> {{ obj.desc }}</textarea>
                             <a href="javascript:;" class="pic_del" type="{{ obj.id }}"><span class="glyphicon glyphicon-remove"></span></a>
-                            &nbsp;&nbsp;<a href="javascript:;"><span class="glyphicon glyphicon-edit"></span></a>
+                            &nbsp;&nbsp;<a href="javascript:;" class="pic_edit" type="{{ obj.id }}"><span class="glyphicon glyphicon-edit"></span></a>
                             {% endif %}
                             <hr/>
                         </div>

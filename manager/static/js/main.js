@@ -11,6 +11,7 @@ $(function ($) {
     navigator_switch();
     addWiki_Init();
     picDel();
+    PicEdit();
 
 })//html文档加载后，运行这些代码
 
@@ -366,6 +367,40 @@ function picDel() {
         });
 
     }
+}
+//图片描述内容编辑
+function PicEdit(){
+    $('.pic_edit').click(function () {
+        $(this).siblings('textarea').show('normal');
+        $(this).html('<span class="pic_save"><span class="glyphicon glyphicon-ok">保存</span></span>');
+        var that = $(this);
+        $('.pic_save').bind('click', function(){
+            PicSave(that);
+        })
+    });
+    function PicSave(elem){
+        var picdesc=elem.siblings('textarea').val();
+        var url='/manage/pic/edit_save/';
+        var id=elem.attr('type');
+        var jqxhr=$.post(url, {'desc':picdesc,'id':id}, function(data){
+           if(data){
+                var r=JSON.parse(data);
+//                location.reload();//刷新当前页面
+                elem.siblings('textarea').hide(300);
+                elem.html('<span class="glyphicon glyphicon-edit"></span>');
+                elem.siblings('div').children('.picdesc').children('.picdesc_con').text(r.desc);
+
+            }else{
+                alert('系统出错');
+            }
+        });
+        jqxhr.error(function() {
+            alert("发生错误了，错误代码是:"+jqxhr.status);
+
+        });
+
+    }
+    
 }
 /*-----------上面是处理picture的js代码-----end----*/
 
