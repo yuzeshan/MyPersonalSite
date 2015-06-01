@@ -386,6 +386,7 @@ function PicEdit(){
            if(data){
                 var r=JSON.parse(data);
 //                location.reload();//刷新当前页面
+               //下面主要实现静态修改，而不需要刷新该页面，体验更好!
                 elem.siblings('textarea').hide(300);
                 elem.html('<span class="glyphicon glyphicon-edit"></span>');
                 elem.siblings('div').children('.picdesc').children('.picdesc_con').text(r.desc);
