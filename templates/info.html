@@ -1,0 +1,40 @@
+{% extends "wiki/wiki_base.html" %}
+
+{% block css %}
+    <style>
+        body {
+            background:url(/static/img/star.jpg);
+            background-position: 0 0; /* 元素的左上角 */
+            background-repeat: no-repeat; /* 不平铺。图片只展示一次。 */
+            background-attachment: fixed;
+            background-color: #999;
+            background-size: cover;
+        }
+        .info-con{
+            width: 75%;
+            margin: 0 auto;
+            margin-top: 50px;
+            margin-bottom: 300px;
+        }
+    </style>
+
+{% endblock %}
+
+{% block content %}
+    <div class="info-con">
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <div class="media " id="blog_{{ blog.id }}">
+                    <a class="media-left media-middle" href="javascript:;">
+                        <img class="img-circle" src="/static/img/about/info.jpg" width="120" height="120">
+                    </a>
+                    <div class="media-body media-object" >
+                        <p class="alert alert-info" style="margin-top: 20px;">主人还没建造此处哦，请稍等！！！</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

@@ -174,7 +174,7 @@
         function searchButtonId(text){
             var id=null;
             $('#cate_buttons span button').each(function () {
-                if($(this).text()==text){
+                if($.trim($(this).text())==text){ //去除button中间存在的空格，否则会不匹配
                     id=$(this).attr('id');
                     return false;
                 }

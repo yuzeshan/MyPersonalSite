@@ -330,5 +330,17 @@ def pic_ciphertext(request,pk=None):
         return render_to_response('ciphertext.html',
                                   context_instance=RequestContext(request))
 
+def about(request):
+    """关于页面
+      包括本人信息和该站的信息
+    """
+    return render_to_response('about.html',context_instance=RequestContext(request))
+
+def info(request):
+    """互联网资讯页面
+      包括最新的互联网圈内消息，定期爬虫
+    """
+    return render_to_response('info.html',context_instance=RequestContext(request))
+
 
 

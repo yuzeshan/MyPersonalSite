@@ -40,6 +40,9 @@ urlpatterns += patterns('myblog.views',
     url(r"^pic/(?P<pk>\d+)/$",'picView',name='pic'),#图片相册内容
     url(r'^pic_ciphertext/(?P<pk>\d+)/$','pic_ciphertext',name='pic_ciphertext'),#图片加密重定向
 
+    url(r'^about/$','about',name='about'),  #关于页面
+    url(r'^info/$','info',name='info'),  #互联网资讯页面
+
 
 )
 

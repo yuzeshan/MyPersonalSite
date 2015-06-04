@@ -1,0 +1,172 @@
+{% extends "wiki/wiki_base.html" %}
+
+{% block content %}
+    <header>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <p style="padding:0 4% 0 26%;">
+                        <img class="img-circle img-responsive" src="/static/img/about/about1.jpg" alt="" width="500" height="300"/>
+                    </p>
+                    <div class="intro-text">
+                        <h1>关于本人</h1>
+                        <p>90后，学生，Pythoner、前端爱好者...</p>
+                    </div>
+                    <a class="circle-down page-scroll" id="circle-down" href="#edu_skill">
+                        <i class="fa fa-angle-double-down"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </header>
+    <section class="edu_skill" id="edu_skill">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6" id="left1">
+                    <div class="row">
+                        <div class="col-md-3 text-center">
+                            <i class="fa fa-graduation-cap"></i>Education
+
+                        </div>
+                        <div class="col-md-9">
+                            <p>
+                                Master-Study(SIP,Signal and Information processing),2013-2016<br/>
+                                <span class="text-muted"> Nanjing University of Posts and Telecommunications,NanJing</span>
+                            </p>
+                            <p>
+                                Bachelor-Study(CE,Communication Engineering),2009-2013<br/>
+                                <span class="text-muted">HuaiBei Normal University,HuaiBei</span>
+
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-3 text-center">
+                            <i class="fa fa-road"></i>Work&Job
+
+                        </div>
+                        <div class="col-md-9">
+                            <p>
+                                None
+                            </p>
+
+                        </div>
+                    </div>
+
+
+                </div>
+                <div class="col-md-6" id="right1">
+                    <div class="row">
+                        <div class="col-md-3 text-center">
+                            <i class="fa fa-tags"></i>SKILLS
+                        </div>
+                        <div class="col-md-9">
+                            <div class="progress">
+                                <div class="progress-bar" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" style="width: 70%;">
+                                    HTML/CSS
+                                </div>
+                            </div>
+                            <div class="progress">
+                                <div class="progress-bar progress-bar-info progress-bar-striped" role="progressbar" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100" style="width: 90%">
+                                    BOOTSTRAP
+                                </div>
+                            </div>
+                            <div class="progress">
+                                <div class="progress-bar progress-bar-success progress-bar-striped" role="progressbar" aria-valuenow="65" aria-valuemin="0" aria-valuemax="100" style="width: 65%">
+                                    JAVASCRIPT
+                                </div>
+                            </div>
+                            <div class="progress">
+                                <div class="progress-bar progress-bar-info progress-bar-striped" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="width: 50%">
+                                    JQUERY
+                                </div>
+                            </div>
+                            <div class="progress">
+                                <div class="progress-bar progress-bar-warning progress-bar-striped" role="progressbar" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100" style="width: 85%">
+                                    AJAX
+                                </div>
+                            </div>
+                            <div class="progress">
+                                <div class="progress-bar progress-bar-danger progress-bar-striped" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" style="width: 70%">
+                                    PYTHON
+                                </div>
+                            </div>
+                            <div class="progress">
+                                <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;">
+                                    DJANGO
+                                </div>
+                            </div>
+                            <div class="progress">
+                                <div class="progress-bar progress-bar-success progress-bar-striped" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="width: 50%">
+                                    MYSQL
+                                </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="portfolio" id="portfolio">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4" id="left2">
+                    <h2>关于作品</h2>
+                    <p>本人闲来无事上上Github淘点代码,<br/>
+                        偶尔上Dribbble偷点创意。<br/>
+                        虽较懒，也写了几样东西(呵呵).<br />
+                        爱好前端，可惜没有设计的头脑...
+                    </p>
+                </div>
+                <div class="col-md-8" id="right2">
+                    <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+                        <!-- Indicators -->
+                        <ol class="carousel-indicators">
+                            <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
+                            <li data-target="#carousel-example-generic" data-slide-to="1"></li>
+                            <li data-target="#carousel-example-generic" data-slide-to="2"></li>
+
+                        </ol>
+
+                        <!-- Wrapper for slides -->
+                        <div class="carousel-inner" role="listbox">
+                            <div class="item active">
+                                <img  class="img-responsive" src="/static/img/about/web.jpg" alt="mysite">
+                            </div>
+                            <div class="item">
+                                <img class="img-responsive" src="/static/img/about/asuna.jpg" alt="Firefox">
+                            </div>
+                            <div class="item">
+                                <img class="img-responsive" src="/static/img/about/wechat.jpg" width="748"  height="350" alt="Safari">
+                            </div>
+                        </div>
+
+                        <!-- Controls -->
+                        <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
+                            <span class="glyphicon glyphicon-chevron-left"></span>
+                            <span class="sr-only">Previous</span>
+                        </a>
+                        <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
+                            <span class="glyphicon glyphicon-chevron-right"></span>
+                            <span class="sr-only">Next</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="mysite text-center" >
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <h3>本站代码结构</h3>
+                    <img class="img-responsive" src="/static/img/about/code-structure.jpg" alt="code-structure"/>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

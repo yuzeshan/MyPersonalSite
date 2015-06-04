@@ -405,6 +405,27 @@ function PicEdit(){
 }
 /*-----------上面是处理picture的js代码-----end----*/
 
+/*---------下面处理about.html的js代码----strat----*/
+$(function() {
+    $('a.page-scroll').bind('click', function(event) {
+        var $anchor = $(this);
+        $('html, body').stop().animate({
+            scrollTop: $($anchor.attr('href')).offset().top
+        }, 1500, 'easeInOutExpo');
+        event.preventDefault();
+    });
+    window.addEventListener('scroll', function () {
+        setTimeout(function(){
+            $('#right1').show('normal');
+            $('#left1').show('normal');
+            $('#right2').show('normal');
+            $('#left2').show('normal');
+        },100);
+    },false);
+
+});
+/*---------下面处理about.html的js代码----end----*/
+
 
 /*下面是点击导航栏的焦点迁移*/
 function navigator_switch(){
@@ -428,6 +449,12 @@ function navigator_switch(){
     if(path.indexOf('about') > -1){
         $('.navgator li').removeClass();
         $('#about').addClass('active');
+        $('title').text('关于本人及本站');
+    }
+    if(path.indexOf('info') > -1){
+        $('.navgator li').removeClass();
+        $('#info').addClass('active');
+        $('title').text('最新的互联网资讯');
     }
 }
 
@@ -519,7 +546,11 @@ $('#getmenu').click(function(){
     //点击网站导航
     $('#wccguide').click(function(){
 //        $('#tempsaying').text('主人还没设置该功能哦!');
-        mytext = '<ul><li><a href="/" style="letter-space:2px;">首页</a></li><li><a href="#" style="letter-space:2px;">博客页</a></li></ul>';
+        mytext = '<ul>' +
+            '<li><a href="/" style="letter-space:2px;">Home</a></li><li><a href="/index/" style="letter-space:2px;">Blog</a></li>' +
+            '<li><a href="/wiki/" style="letter-space:2px;">Wiki</a></li><li><a href="/pic/" style="letter-space:2px;">Picture</a></li>' +
+            '<li><a href="/about/" style="letter-space:2px;">About</a></li><li><a href="/info/" style="letter-space:2px;">Internet News</a></li>' +
+            '</ul>';
         typeit($("#tempsaying"),mytext);
         $('#showmenu').hide();
         $('#getmenu').show();
