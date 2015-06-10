@@ -3,13 +3,22 @@
     <head>
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-
         <meta property="wb:webmaster" content="40440bba702aa617" />
-
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="description" content="">
-        <meta name="author" content="">
-        <title>Shanyuze的博客</title>
+        <!--博文seo设置 start-->
+        <meta name="description" content="{{ blog.content|truncatewords_html:10|safe|default:"Shanyuze的小站是一个清新的、简洁的、并将web、编程、互联网、算法、生活等方面尽可能以简单易懂的方式分享出来的IT生活社区，在这里你可以轻松愉快的获得更多知识。" }}">
+        <meta name="keywords" content="{{ tags|default:"Python,Django,Shanyuze,算法,Mysql,Web,UI,HTML5,HTML,CSS,Bootstrap,JavaScript,JQuery,Database,Linux,OS,Shanyuze的小站" }}">
+        <meta name="author" content="Shanyuze">
+        <title>{{ blog.title|default:"首页" }}&nbsp;-&nbsp;Shanyuze的博客</title>
+        <meta content="article" property="og:type">
+        <meta content="{{ blog.title }}" property="og:title">
+        <meta content="{{ blog.content|truncatewords_html:10|safe }}" property="og:description">
+        <!--下面上线后设置-->
+{#        <meta property="og:url" content="http://www.shanyuze.com/index/" />#}
+{#    <link rel='next' href='http://www.shanyuze.com/wiki/' />#}
+{#        <link type="application/rss+xml" title="Shanyuze的小站" href="http://www.shanyuze.com//feed/" rel="alternate">#}
+        <!--博文SEO设置 end-->
+
         <link rel="shortcut icon" href="/static/img/favicon.ico">
         <!--Bootstrap core css-->
         <link rel="stylesheet" href="{{ STATIC_URL }}bootstrap/css/bootstrap.min.css"/>
@@ -123,6 +132,7 @@
     <script>
         $(function(){
             {% if not is_blog_view %} getSideinfo();{% endif %}
+{#            alert($('meta[name="keywords"]').attr('content')[3]);#}
         });
         function getSideinfo(){
             var url='/sideInfo/';

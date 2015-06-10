@@ -44,7 +44,7 @@
                     {% for obj in pics %}
                         <div id="pic_{{ obj.id }}">
                             <p style="text-align: center;">
-                            <img class="lazy img-responsive" data-original="{{ obj.img }}" width="800" height="574" alt="">
+                            <img class="lazy img-responsive" data-original="{{ obj.img }}" width="800" height="574" alt="{{ obj.type.title }}">
                             </p>
                             <br/>
                             <div class="text-muted">

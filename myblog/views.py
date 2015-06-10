@@ -24,6 +24,9 @@ def index(request):
 def blog(request,pk):
     """博客详细页面"""
     blog=Blog.objects.get(pk=pk)#获取一个博客对象(相当于Blog类的对象)
+    labels=[i.tag.name for i in blog.getTags()] #这是准备放在博文head头里的meta：keywords里面，进行seo的
+    tags=" ".join(labels)
+
     if blog.is_show:
         return HttpResponseRedirect('/blog_ciphertext/%s/'%pk)
     categories=Category.objects.all()
@@ -32,7 +35,7 @@ def blog(request,pk):
     pg=get_neighbor(Blog,pk)  #获取上下篇博客的id
     return render_to_response('blog.html',
                               {'blog':blog,'categories':categories,'pg':pg,
-                               'is_blog_view':True},
+                               'is_blog_view':True,'tags':tags},
                               context_instance=RequestContext(request))
 
 def get_neighbor(obj,id):#这里添加了obj，使其通用化，传过来的是model模型

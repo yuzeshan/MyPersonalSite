@@ -19,7 +19,7 @@
         {% for blog in blogs %}
             <div class="media " id="blog_{{ blog.id }}">
                 <a class="media-left media-middle" href="{{ blog.get_absolute_url }}">
-                    <img class="img-circle" src="{{ blog.img }}" width="120" height="120">
+                    <img class="img-circle" src="{{ blog.img }}" width="120" height="120" alt="blog导图">
                 </a>
                 <div class="media-body media-object" >
                     <p style="font-weight: bold;font-size: 15px;">

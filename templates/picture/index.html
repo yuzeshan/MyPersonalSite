@@ -39,7 +39,7 @@
                                     <div class="thumbnail">
                                         <a href="{{ obj.get_absolute_url }}">
                                             {% if obj.is_show %}
-                                                <img class="img-responsive" src="/static/img/pic_lock.jpg" width="200px" height="200px">
+                                                <img class="img-responsive" src="/static/img/pic_lock.jpg" width="200px" height="200px" alt="加密图片">
                                             {% else %}
                                                 <img class="img-responsive" src="{{ obj.img }}" alt="{{ obj.title }}" width="200px" height="150px">
                                             {% endif %}
