@@ -394,12 +394,12 @@ def delPic(request):
         id=request.POST.get('id',None)#获取模型的id值
         if str_model=='pictype':  #删除图片相册，并且将相册中的相片全部删除，包括远端七牛云上
             pictype=PicType.objects.get(pk=id)
-            qn = Qiniu(pictype.img[38:]) #将远端的图片删除，参数是img链接的key，这里是从字符串38开始，就不计算了
+            qn = Qiniu(pictype.img[(pictype.img).find('/',7)+1:]) #将远端的图片删除，参数是img链接的key，这里是从字符串38开始，就不计算了
             qn.delFile()
             pics=Pic.objects.filter(type=pictype)#获取图片相册对应的所有图片
             keys=[]   #取得所有图片的key
             for pic in pics:
-                keys.append(pic.img[38:])
+                keys.append(pic.img[(pic.img).find('/',7)+1:])
             qn = Qiniu(keys)
             qn.delMoreFiles() #删除远端多个图片
             #这两个放到最后再删除，原因是先把pictype删除后，后面就取不到pictype实例，进而取不到pic实例
@@ -408,7 +408,7 @@ def delPic(request):
             return HttpResponse(json.dumps({'id':id,'model':'pictype'}))
         elif str_model=='pic':
             pic=Pic.objects.get(pk=id)
-            qn = Qiniu(pic.img[38:]) #将远端的图片删除，参数是img链接的key，这里是从字符串38开始，就不计算了
+            qn = Qiniu(pic.img[(pic.img).find('/',7)+1:]) #将远端的图片删除，参数是img链接的key，这里是从字符串38开始，就不计算了
             qn.delFile()
             pic.delete()
             return HttpResponse(json.dumps({'id':id,'model':'pic'}))

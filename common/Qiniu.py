@@ -20,7 +20,7 @@ uptoken = policy.token()
 class Qiniu(object):
     def __init__(self, filepath, w=200, h=200, request=None, **kwargs):
         self.filepath = filepath    # 文件绝对路径
-        self.key = str(datetime.datetime.now())               # 文件唯一标示
+        self.key ='.'.join([(str(datetime.datetime.now())).split('.')[0],'jpg'])               # 文件唯一标示
         self.request = request
         self.w = w      # 宽度
         self.h = h      # 高度
