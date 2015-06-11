@@ -64,7 +64,7 @@
                     <!--右侧边栏-->
                     <div class="col-md-3 rside" >
                         {% include "userinfo.html" %}
-                        <div id="sideinfo"></div>
+                        <div id="sideinfo"></div>  <!--用ajax后台返回html文件并附带变量参数值，然后使用dom将返回的html插入该div中-->
                     </div>
                 </div>
             </div>
@@ -76,7 +76,7 @@
         <!--下面为浮动小人 start-->
         <div id="float_asuna" onfocus="this.blur();" >
             <div id="asuna_pic"
-                 style="background:url({{ STATIC_URL }}img/saber.png) no-repeat scroll 50% 0% transparent; width:85px;height:152px;">
+                 style="background:url({{ STATIC_URL }}img/saber-robot/saber.png) no-repeat scroll 50% 0% transparent; width:85px;height:152px;">
 
             </div>
             <div id="dialog_chat">

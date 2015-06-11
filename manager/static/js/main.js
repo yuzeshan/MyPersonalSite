@@ -424,6 +424,10 @@ $(function() {
     },false);
 
 });
+//IE设置header背景颜色，因为渐变颜色不兼容
+if(BrowserDetect.browser=='Mozilla'){
+    $('#header-color').css('background','rgb(83,133,39)');
+}
 /*---------下面处理about.html的js代码----end----*/
 
 
@@ -870,4 +874,5 @@ function animate(el,obj){//其中attr是需要获取的style属性，step是移�
 		}
 
 }
+
 

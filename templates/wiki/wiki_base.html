@@ -55,7 +55,7 @@
         <!--下面为浮动小人 start-->
         <div id="float_asuna" onfocus="this.blur();" >
             <div id="asuna_pic"
-                 style="background:url({{ STATIC_URL }}img/saber.png) no-repeat scroll 50% 0% transparent; width:85px;height:152px;">
+                 style="background:url({{ STATIC_URL }}img/saber-robot/saber.png) no-repeat scroll 50% 0% transparent; width:85px;height:152px;">
 
             </div>
             <div id="dialog_chat">
@@ -101,8 +101,9 @@
         <script src="{{ STATIC_URL }}bootstrap/js/jquery-1.11.1.min.js"></script>
         <script src="{{ STATIC_URL }}bootstrap/js/bootstrap.min.js"></script>
         <!-- Plugin JavaScript -->
-        <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
+        <script src="/static/home/js/jquery.easing.min.js"></script>
         <!--下面为返回顶部图标及后台编辑博客处理的js-->
+        <script src="/static/js/browserDetect.js"></script>
         <script type="text/javascript" src="{{ STATIC_URL }}js/main.js"></script>
         {% block js %}{% endblock %}
     </body>
