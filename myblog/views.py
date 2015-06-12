@@ -47,7 +47,11 @@ def get_neighbor(obj,id):#这里添加了obj，使其通用化，传过来的是
     #获取数据库中博客id列表
     #比如：[1l,2l,5l,6l]
     id=int(id) #因为传过来的id为字符串
-    blogs_id=obj.objects.values_list('id',flat=True).order_by('-id')
+    #--- 下面为了判断传过来的是Blog还是Wiki，以便决定是倒序还是顺序排列id，从而使得上下篇链接正确放置--
+    if obj==Wiki:
+        blogs_id=obj.objects.values_list('id',flat=True).order_by('id')
+    else:
+        blogs_id=obj.objects.values_list('id',flat=True).order_by('-id')
     blogs_id=list(blogs_id)
     dic={}
     if blogs_id:
