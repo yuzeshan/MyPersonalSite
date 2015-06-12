@@ -463,7 +463,6 @@ function navigator_switch(){
 }
 
 /*下面是浮动小人的js代码*/
-
 //刷新页面时浮动小人从天缓缓而降
 animate(document.getElementById('float_asuna'),{
     attr:'y',
