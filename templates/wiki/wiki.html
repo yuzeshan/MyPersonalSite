@@ -129,17 +129,17 @@
 
                     </div>
             {% endfor %}
-            {% if user.is_authenticated %}
-                <!--下面为添加wiki名称-->
-                <div id="add" data-toggle="modal" data-target="#addwikiname" onclick="(function(){
-                           //操作初始化
-                           $('#sendok').hide();
-                           $('#wiki_input').show();
-                       })()"></div>
-            {% endif%}
         {% else %}
             <div class="alert alert-danger" role="alert" style="margin:50px auto 200px;width: 50%;">还没有建立任何Wiki哦!</div>
         {% endif %}
+        {% if user.is_authenticated %}
+            <!--下面为添加wiki名称-->
+            <div id="add" data-toggle="modal" data-target="#addwikiname" onclick="(function(){
+                       //操作初始化
+                       $('#sendok').hide();
+                       $('#wiki_input').show();
+                   })()"></div>
+        {% endif%}
 
     </div>
     <!--添加wiki名称的模态框，基于bootstrap实现-->
