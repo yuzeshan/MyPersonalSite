@@ -303,9 +303,8 @@ header .intro-text .intro-heading {
     margin-bottom: 25px;
     text-transform: uppercase;
     font-family: Montserrat,"Helvetica Neue",Helvetica,Arial,sans-serif;
-    font-size: 50px;
-    font-weight: 700;
-    line-height: 50px;
+    font-size: 25px;
+    line-height: 25px;
 }
 
 @media(min-width:768px) {
@@ -330,6 +329,7 @@ header .intro-text .intro-heading {
         font-size: 20px;
         line-height: 20px;
     }
+
 }
 
 section {
@@ -365,6 +365,14 @@ section {
 #responsive .double-portfolio a:focus,
 #responsive .double-portfolio a:active {
     background-color: #fed136;
+}
+@media (max-width: 768px) {
+    #responsive h1{
+        font-size: 25px;
+    }
+    #web-backend h1{
+        font-size: 25px;
+    }
 }
 #web-backend{
     background-color: rgb(38,81,118);
