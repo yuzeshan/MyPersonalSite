@@ -52,7 +52,7 @@
             'swf'      : '/static/uploadify/uploadify.swf',    //指定上传控件的主体文件
             'uploader' : '/manage/pic/upload/',                      //指定服务器端上传处理路径
             'onUploadError' : function(file, errorCode, errorMsg, errorString) { // 上传失败
-                alert(file.name + ' 上传失败。详细信息: ' + errorString);
+                alert(file.name + ' 上传失败。详细信息: ' + errorString+errorMsg);
             },
             'onUploadSuccess' : function(file, data, response) {    // 上传成功
                 var r = JSON.parse(data);
