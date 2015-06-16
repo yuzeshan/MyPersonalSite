@@ -236,7 +236,10 @@ def blog_ciphertext(request,pk=None):
                                   {'blog':blog,'categories':categories,'pg':pg,
                                    'is_blog_view':True},
                                   context_instance=RequestContext(request))
-
+       else:
+           error="密码输入错误，请重试..."
+           return render_to_response('ciphertext.html',{'error':error},
+                                  context_instance=RequestContext(request))
 
     else:
         return render_to_response('ciphertext.html',
@@ -332,7 +335,10 @@ def pic_ciphertext(request,pk=None):
            return render_to_response('picture/pic.html',context,
                               context_instance=RequestContext(request))
 
-
+       else:
+           error="密码输入错误，请重试..."
+           return render_to_response('ciphertext.html',{'error':error},
+                                  context_instance=RequestContext(request))
     else:
         return render_to_response('ciphertext.html',
                                   context_instance=RequestContext(request))
