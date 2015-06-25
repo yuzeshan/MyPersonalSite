@@ -33,7 +33,7 @@
                         <h2 class="media-heading" style="margin-top: 20px;">相册名:<code>{{ pictype.title }}</code><span class="badge">{{ pics|length }}张</span></h2>
                         {% if user.is_authenticated %}
                             <a href="/manage/pic/uploadPic/{{ pictype.id }}/" class="btn btn-success btn-lg">
-                                <span class="glyphicon glyphicon-picture"></span>上传图片
+                                <i class="fa fa-picture-o fa-lg"></i>上传图片
                             </a>
                         {% endif %}
                     </div>
@@ -56,8 +56,8 @@
 
                             {% if user.is_authenticated %}
                             <textarea name="" id="" cols="100" rows="3" style="display: none;"> {{ obj.desc }}</textarea>
-                            <a href="javascript:;" class="pic_del" type="{{ obj.id }}"><span class="glyphicon glyphicon-remove"></span></a>
-                            &nbsp;&nbsp;<a href="javascript:;" class="pic_edit" type="{{ obj.id }}"><span class="glyphicon glyphicon-edit"></span></a>
+                            <a href="javascript:;" class="pic_del" type="{{ obj.id }}"><i class="fa fa-times fa-lg"></i></a>
+                            &nbsp;&nbsp;<a href="javascript:;" class="pic_edit" type="{{ obj.id }}"><i class="fa fa-pencil-square-o fa-lg"></i></a>
                             {% endif %}
                             <hr/>
                         </div>

@@ -26,7 +26,7 @@
                     My picture.
                     {% if user.is_authenticated %}
                         <a href="/manage/pic/create_type/" class="btn btn-warning">
-                            <span class="glyphicon glyphicon-plus"></span>添加图片册
+                            <i class="fa fa-plus fa-lg"></i>添加图片册
                         </a>
                     {% endif %}
                 </p>
@@ -52,8 +52,8 @@
                                             </div>
                                             {% if user.is_authenticated %}
                                             <div class="text-right">
-                                                <a href="javascript:;" class="pictype_del" type="{{ obj.id }}"><span class="glyphicon glyphicon-remove"></span></a>
-                                                &nbsp;&nbsp;<a href="/manage/pic/create_type/?id={{ obj.id }}"><span class="glyphicon glyphicon-edit"></span></a>
+                                                <a href="javascript:;" class="pictype_del" type="{{ obj.id }}"><i class="fa fa-times fa-lg"></i></a>
+                                                &nbsp;&nbsp;<a href="/manage/pic/create_type/?id={{ obj.id }}"><i class="fa fa-pencil-square-o fa-lg"></i></a>
                                             </div>
                                             {% endif %}
                                         </div>

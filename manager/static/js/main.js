@@ -372,7 +372,7 @@ function picDel() {
 function PicEdit(){
     $('.pic_edit').click(function () {
         $(this).siblings('textarea').show('normal');
-        $(this).html('<span class="pic_save"><span class="glyphicon glyphicon-ok">保存</span></span>');
+        $(this).html('<span class="pic_save"><i class="fa fa-check"></i>保存</span>');
         var that = $(this);
         $('.pic_save').bind('click', function(){
             PicSave(that);
@@ -388,7 +388,7 @@ function PicEdit(){
 //                location.reload();//刷新当前页面
                //下面主要实现静态修改，而不需要刷新该页面，体验更好!
                 elem.siblings('textarea').hide(300);
-                elem.html('<span class="glyphicon glyphicon-edit"></span>');
+                elem.html('<i class="fa fa-pencil-square-o fa-lg"></i>');
                 elem.siblings('div').children('.picdesc').children('.picdesc_con').text(r.desc);
 
             }else{
