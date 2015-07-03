@@ -478,13 +478,21 @@ $(window).bind('resize',function(){
 
 });
 //滑动滚动条时，浮动小人的动画效果，就是有速度的往下走
-$(window).bind('scroll',function(){
+if(BrowserDetect.browser=='Chrome' || BrowserDetect.browser=='Safari'){
+    $('#float_asuna').css('position','fixed');
+    $('#float_asuna').css('z-index','999');
+    $('#float_asuna').css('top','300');
+    $('#float_asuna').css('right','200');
+}else{
+    $(window).bind('scroll',function(){
     var el=document.getElementById('float_asuna');
     animate(el,{
 			attr:'y',
-			target:document.documentElement.scrollTop+(document.documentElement.clientHeight-parseInt(getStyle(el,'height')))/2
+			target:$(window).scrollTop()+($(window).height()-parseInt(getStyle(el,'height')))/2
 		});
-});
+    });
+}
+
 var mytext;
 //点击显示菜单
 $('#getmenu').click(function(){
