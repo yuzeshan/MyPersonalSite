@@ -2,6 +2,9 @@
 
 >这是我的个人网站,目前还在建造中，未来还要添加一个轻量级的社区和互联网消息页，前者主要为了能在上面共享及解决一些问题，后者主要是爬取最新的互联网资讯分享出来。
 
+###在线DEMO：[http://shanyuze.com](http://shanyuze.com)
+**`注意`**:若访问上述域名太慢的话，请访问[http://shanyuze.sinaapp.com](http://shanyuze.sinaapp.com),因为本人的网站是部署在SAE上的，买的绑定在SAE上的`shanyuze.com`域名并没有备案，所以走的是海外服务器，比较慢，所以访问新浪云提供的二级域名`http://shanyuze.sinaapp.com`会比较快些.
+
 ###下面介绍本站的一些信息:
 1.开发环境:
 
