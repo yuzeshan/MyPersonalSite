@@ -3,7 +3,7 @@ from manager.models import Blog
 from django.contrib.syndication.views import Feed
 class LatestEntriesFeed(Feed):
     title = u"Shanyuze的博客文章"            # title
-    link = "http://yuzeshan.cn/"    #首页链接,还要修改
+    link = "http://shanyuze.com/"    #首页链接,还要修改
     author_name='Shanyuze'
     description = u"学习python、django和前端Html&css&js等web开发，并关注大数据、云计算相关互联网态势。。。"
     def items(self):
