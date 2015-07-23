@@ -166,5 +166,3 @@ TEMPLATE_DIRS = (
 
 
 
-
-
