@@ -421,6 +421,19 @@ def editSave(request):
         pic=Pic.objects.filter(pk=id).update(desc=desc)
         return HttpResponse(json.dumps({'desc':desc}))
 
+from django.core.mail import send_mail
+@csrf_exempt
+def sendMail(request):
+    if request.method=='POST':
+        name=request.POST.get('name')
+        phone=request.POST.get('phone')
+        email=request.POST.get('email')
+        message=request.POST.get('message')
+        message='\n'.join([name,phone,email,message])
+        subject=u'shanyuze的小站邮件反馈'.encode('utf-8')
+        send_mail(subject,message,email,['1183445502@qq.com'],)
+        return HttpResponse('ok')
+
 
 
 

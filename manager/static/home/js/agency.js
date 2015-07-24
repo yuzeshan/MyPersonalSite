@@ -28,13 +28,13 @@ $(function() {
                 firstName = name.split(' ').slice(0, -1).join(' ');
             }
             $.ajax({
-                url: "/sendmail/",
+                url: "/manage/sendmail/",  <!--用manager的url和views来处理-->
                 type: "POST",
                 data: {
-                    name: name,
-                    phone: phone,
-                    email: email,
-                    message: message
+                    name: 'user_name:'+name,
+                    phone: 'user_phone:'+phone,
+                    email: 'email:'+email,
+                    message: 'Feedback_message:'+message
                 },
                 cache: false,
                 success: function() {

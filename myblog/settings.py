@@ -165,4 +165,10 @@ TEMPLATE_DIRS = (
 )
 
 
+#邮件配置
+EMAIL_HOST = 'smtp.163.com'                   #SMTP地址
+EMAIL_PORT = 25                                 #SMTP端口
+EMAIL_HOST_USER = 'XXXX@163.com'       #我自己的邮箱
+EMAIL_HOST_PASSWORD = 'XXXXXX'                  #我的邮箱密码
+
 

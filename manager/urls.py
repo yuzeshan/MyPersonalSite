@@ -22,4 +22,6 @@ urlpatterns = patterns('manager.views',
     url(r'^pic/delPic/$','delPic',name='delPic'),#删除图片相册或单个图片
     url(r'^pic/edit_save/$','editSave',name='edit_save'),#通过ajax编辑图片描述内容后再进行保存
 
+    url(r'sendmail/$','sendMail',name='sendMail'),  #通过sendmail发送邮件信息反馈
+
 )
