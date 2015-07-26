@@ -431,7 +431,7 @@ def sendMail(request):
         message=request.POST.get('message')
         message='\n'.join([name,phone,email,message])
         subject=u'shanyuze的小站邮件反馈'.encode('utf-8')
-        send_mail(subject,message,email,['1183445502@qq.com'],)
+        send_mail(subject,message,'XXXX@163.com',['1183445502@qq.com'],)
         return HttpResponse('ok')
 
 
